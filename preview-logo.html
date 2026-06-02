@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview Logo | Hari Jadi Desa Karyamukti ke-47</title>
+  <link rel="icon" href="logo/favicon.ico" type="image/x-icon">
+  <style>
+    :root {
+      --card: rgba(255, 250, 241, 0.94);
+      --ink: #302418;
+      --muted: #6e5a46;
+      --brand: #b33a30;
+      --brand-dark: #7f261f;
+      --line: rgba(93, 62, 34, 0.14);
+      --shadow: 0 18px 42px rgba(74, 41, 18, 0.12);
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(214, 165, 87, 0.22), transparent 26%),
+        linear-gradient(180deg, #fbf5ea 0%, #f6efe3 48%, #f1e6d6 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 28px 0 22px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 18px 20px;
+      background: rgba(255, 250, 244, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 999px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 28px rgba(70, 39, 17, 0.08);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .logo img {
+      display: block;
+      width: min(100%, 460px);
+      height: auto;
+    }
+
+    main {
+      padding: 0 0 24px;
+    }
+
+    .page-intro {
+      margin-bottom: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .preview-card {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 28px rgba(67, 39, 21, 0.06);
+    }
+
+    .preview-media {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+      padding: 18px;
+      background:
+        linear-gradient(45deg, rgba(111, 90, 70, 0.08) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(111, 90, 70, 0.08) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(111, 90, 70, 0.08) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(111, 90, 70, 0.08) 75%);
+      background-size: 24px 24px;
+      background-position: 0 0, 0 12px, 12px -12px, -12px 0;
+    }
+
+    .preview-media.banner {
+      background: linear-gradient(135deg, rgba(179, 58, 48, 0.12), rgba(214, 165, 87, 0.16));
+    }
+
+    .preview-media img {
+      display: block;
+      max-width: 100%;
+      max-height: 320px;
+      object-fit: contain;
+      border-radius: 18px;
+    }
+
+    .preview-content {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      gap: 14px;
+      padding: 22px;
+    }
+
+    .preview-content h2 {
+      margin: 0;
+      font-size: 1.24rem;
+    }
+
+    .preview-content p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: auto;
+      padding: 13px 18px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+      color: #fff8ef;
+      font-weight: 700;
+      box-shadow: 0 14px 24px rgba(127, 38, 31, 0.22);
+    }
+
+    .footer {
+      padding: 0 0 40px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .footer .shell {
+      text-align: right;
+    }
+
+    .floating-btn {
+      position: fixed;
+      z-index: 20;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 120px;
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(48, 36, 24, 0.9);
+      color: #fff8ef;
+      box-shadow: 0 16px 32px rgba(48, 36, 24, 0.22);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+
+    .floating-btn.share {
+      top: 18px;
+      right: 18px;
+    }
+
+    .floating-btn.back {
+      left: 18px;
+      bottom: 18px;
+    }
+
+    @media (max-width: 920px) {
+      .topbar {
+        border-radius: 26px;
+      }
+
+      .preview-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .preview-media {
+        min-height: 220px;
+      }
+
+      .floating-btn {
+        min-width: 0;
+        padding: 11px 15px;
+        font-size: 0.92rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="shell">
+      <div class="topbar">
+        <a class="logo" href="index.html" aria-label="Hari Jadi Desa Karyamukti ke-47">
+          <img src="logo/logo.png" alt="Logo Hari Jadi Desa Karyamukti ke-47">
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <p class="page-intro">
+      Halaman ini menampilkan preview file logo resmi yang siap diunduh untuk kebutuhan publikasi,
+      desain, banner, dan materi promosi Hari Jadi Desa Karyamukti ke-47.
+    </p>
+
+    <section class="preview-grid">
+      <article class="preview-card">
+        <div class="preview-media">
+          <img src="logo/logoHD.png" alt="Preview Logo PNG">
+        </div>
+        <div class="preview-content">
+          <h2>Logo PNG</h2>
+          <p>Format transparan dengan kualitas tinggi, cocok untuk desain poster, spanduk, dan materi digital.</p>
+          <a class="download-btn" href="logo/logoHD.png" download>Buka / Download</a>
+        </div>
+      </article>
+
+      <article class="preview-card">
+        <div class="preview-media">
+          <img src="logo/LogoHD.jpg" alt="Preview Logo JPG">
+        </div>
+        <div class="preview-content">
+          <h2>Logo JPG</h2>
+          <p>Format gambar siap pakai dengan latar menyatu, cocok untuk unggahan cepat dan dokumen umum.</p>
+          <a class="download-btn" href="logo/LogoHD.jpg" download>Buka / Download</a>
+        </div>
+      </article>
+
+      <article class="preview-card">
+        <div class="preview-media banner">
+          <img src="logo/banner.png" alt="Preview Logo dan Background">
+        </div>
+        <div class="preview-content">
+          <h2>Logo & Background</h2>
+          <p>Versi banner lengkap dengan latar, cocok untuk header web, backdrop, dan kebutuhan promosi visual.</p>
+          <a class="download-btn" href="logo/banner.png" download>Buka / Download</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell">
+      Preview dan unduhan logo resmi Hari Jadi Desa Karyamukti ke-47.
+    </div>
+  </footer>
+
+  <button class="floating-btn share" type="button" id="shareButton">Bagikan</button>
+  <button class="floating-btn back" type="button" id="backButton">Kembali</button>
+
+  <script>
+    const shareButton = document.getElementById("shareButton");
+    const backButton = document.getElementById("backButton");
+
+    shareButton.addEventListener("click", async function () {
+      const shareData = {
+        title: document.title,
+        text: "Preview Logo Hari Jadi Desa Karyamukti ke-47",
+        url: window.location.href
+      };
+
+      try {
+        if (navigator.share) {
+          await navigator.share(shareData);
+          return;
+        }
+
+        await navigator.clipboard.writeText(window.location.href);
+        alert("Tautan halaman sudah disalin.");
+      } catch (error) {
+        if (error && error.name !== "AbortError") {
+          alert("Tautan belum bisa dibagikan dari browser ini.");
+        }
+      }
+    });
+
+    backButton.addEventListener("click", function () {
+      if (window.history.length > 1) {
+        window.history.back();
+        return;
+      }
+
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
