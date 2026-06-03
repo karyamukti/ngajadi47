@@ -58,14 +58,86 @@
     }
     h1 { margin: 16px 0 10px; font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: -0.04em; }
     p { color: var(--muted); line-height: 1.7; }
-    .grid {
+    .schedule-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: 1fr;
       gap: 18px;
       margin: 22px 0 48px;
     }
     .card { padding: 24px; }
-    .card strong { display: block; margin-bottom: 10px; font-size: 1.08rem; }
+    .hero p {
+      margin: 0;
+    }
+    .schedule-card {
+      display: grid;
+      gap: 18px;
+    }
+    .schedule-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 14px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+    .schedule-no {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: rgba(111, 90, 70, 0.12);
+      font-weight: 800;
+    }
+    .schedule-day {
+      display: grid;
+      gap: 6px;
+    }
+    .schedule-day strong {
+      font-size: 1.12rem;
+    }
+    .schedule-day span,
+    .schedule-time,
+    .schedule-block p,
+    .schedule-note {
+      color: var(--muted);
+    }
+    .schedule-time {
+      font-weight: 700;
+      text-align: right;
+    }
+    .activity-list {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 8px;
+      line-height: 1.65;
+    }
+    .schedule-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .schedule-block {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid var(--line);
+    }
+    .schedule-block strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.98rem;
+    }
+    .schedule-block p {
+      margin: 0;
+      line-height: 1.7;
+    }
+    .schedule-note {
+      margin: -4px 0 0;
+      font-size: 0.92rem;
+    }
     .floating-btn {
       position: fixed;
       z-index: 20;
@@ -86,15 +158,131 @@
     }
     .floating-btn.share { top: 18px; right: 18px; }
     .floating-btn.back { left: 18px; bottom: 18px; }
+    .floating-btn.pdf {
+      right: 18px;
+      bottom: 18px;
+      background: linear-gradient(135deg, #b33a30, #7f261f);
+    }
+    .print-table-wrap {
+      display: none;
+      margin: 22px 0 48px;
+      background: #ffffff;
+    }
+    .print-title {
+      margin: 0 0 12px;
+      font-size: 18px;
+      color: #234f9b;
+      letter-spacing: 0.02em;
+    }
+    .print-header {
+      display: none;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+    .print-header img {
+      width: 72px;
+      height: auto;
+      flex: 0 0 auto;
+    }
+    .print-header-copy {
+      flex: 1;
+      text-align: center;
+    }
+    .print-tagline {
+      margin: 4px 0 0;
+      font-size: 12px;
+      color: #4c6897;
+      font-style: italic;
+    }
+    .print-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 12px;
+      background: #ffffff;
+    }
+    .print-table th,
+    .print-table td {
+      padding: 7px 6px;
+      border: 1.2px solid #5d7fc2;
+      vertical-align: top;
+      line-height: 1.35;
+      text-align: left;
+      color: #233b67;
+    }
+    .print-table th {
+      background: #dfe9ff;
+      text-align: center;
+      font-weight: 700;
+    }
+    .print-table td:nth-child(1),
+    .print-table td:nth-child(2),
+    .print-table td:nth-child(3) {
+      text-align: center;
+    }
+    .print-table td:nth-child(1) {
+      font-weight: 700;
+    }
+    .print-table ul {
+      margin: 0;
+      padding-left: 16px;
+    }
+    .print-table li {
+      margin-bottom: 3px;
+    }
+    @media print {
+      .topbar,
+      .floating-btn,
+      .eyebrow,
+      .schedule-grid {
+        display: none !important;
+      }
+      body {
+        background: #ffffff;
+      }
+      .shell {
+        width: 100%;
+      }
+      .hero,
+      .card {
+        box-shadow: none;
+        border: 1px solid #d0d0d0;
+      }
+      .hero {
+        padding: 0 0 12px;
+        background: transparent;
+        border: 0;
+      }
+      .hero h1,
+      .hero p {
+        display: none;
+      }
+      .print-header {
+        display: flex;
+      }
+      .print-table-wrap {
+        display: block;
+      }
+    }
     @media (max-width: 860px) {
       .topbar { border-radius: 24px; }
-      .grid { grid-template-columns: 1fr; }
+      .schedule-meta { grid-template-columns: 1fr; }
+      .schedule-time { text-align: left; }
     }
     @media (max-width: 720px) {
+      .schedule-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
       .floating-btn {
         min-width: 0;
         padding: 11px 15px;
         font-size: 0.92rem;
+      }
+      .floating-btn.pdf {
+        right: 18px;
+        bottom: 74px;
       }
     }
   </style>
@@ -110,30 +298,480 @@
     <section class="hero">
       <div class="eyebrow">Halaman Agenda</div>
       <h1>Jadwal Kegiatan</h1>
-      <p>Halaman ini dipisahkan dari beranda agar susunan acara bisa lebih fokus dan mudah diperbarui. Konten di bawah masih contoh awal dan siap diganti sesuai jadwal resmi panitia.</p>
+      <p>Jadwal berikut disusun dari foto agenda yang Anda lampirkan. Jika ada satu-dua tulisan yang perlu disesuaikan lagi, saya bisa rapikan setelah Anda kirim koreksinya.</p>
     </section>
 
-    <section class="grid">
-      <article class="card">
-        <strong>Pembukaan</strong>
-        <p>Sambutan, doa bersama, dan pembukaan resmi rangkaian Hari Jadi Desa Karyamukti ke-47.</p>
+    <section class="print-table-wrap">
+      <div class="print-header">
+        <img src="logo/logo.png" alt="Logo Hari Jadi Desa Karyamukti ke-47">
+        <div class="print-header-copy">
+          <h2 class="print-title">Jadwal Kegiatan Hari Jadi Desa Karyamukti ke-47</h2>
+          <p class="print-tagline">"Ngawujudkeun Karyamukti Jaya, Mandiri tur Sejahtera"</p>
+        </div>
+      </div>
+      <table class="print-table">
+        <thead>
+          <tr>
+            <th style="width: 5%;">No</th>
+            <th style="width: 17%;">Hari/Tgl</th>
+            <th style="width: 13%;">Waktu</th>
+            <th style="width: 27%;">Kegiatan/Lomba</th>
+            <th style="width: 20%;">Peserta</th>
+            <th style="width: 18%;">Tempat/Lokasi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Minggu, 07 Juni 2026</td>
+            <td>Pukul 07.00 WIB s.d selesai</td>
+            <td>
+              <ul>
+                <li>Upacara Hari Jadi Desa ke-47</li>
+                <li>Lomba Cipta Menu: Menghias Nasi Liwet</li>
+                <li>Ziarah Kubur</li>
+              </ul>
+            </td>
+            <td>Kepala Desa, Perangkat Desa, BPD, LKD dan Tokoh Masyarakat; Tingkat RT se Dusun Sukaharja; Perangkat Desa, BPD dan LKD.</td>
+            <td>Halaman Kantor Desa Karyamukti; Aula Desa Karyamukti; Makam alm. Kepala Desa.</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Senin-Rabu, 08 Juni s.d 08 Juli 2026</td>
+            <td>Pukul 10.00 WIB s.d 14.00 WIB</td>
+            <td>Lomba Video Hari Jadi Desa ke-47</td>
+            <td>Tingkat RT se Desa Karyamukti.</td>
+            <td>Desa Karyamukti.</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>09 Juni 2026</td>
+            <td>Pukul 07.00 WIB s.d selesai</td>
+            <td>
+              <ul>
+                <li>Lomba Mewarnai</li>
+                <li>Lomba Kolase</li>
+              </ul>
+            </td>
+            <td>PAUD / RA se Desa Karyamukti.</td>
+            <td>Aula Kantor Desa.</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Senin, 15 Juni 2026</td>
+            <td>Pukul 08.00 WIB s.d selesai</td>
+            <td>Turnamen Bola Volly Putera dan Puteri</td>
+            <td>Tingkat SD / MI se Desa Karyamukti.</td>
+            <td>Lapang Volly SDN 3 Karyamukti.</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Rabu, 17 Juni 2026</td>
+            <td>Pukul 08.00 WIB s.d selesai</td>
+            <td>Perpisahan PAUD se Desa Karyamukti</td>
+            <td>PAUD se Desa Karyamukti.</td>
+            <td>Aula Desa.</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Selasa, 23 Juni 2026</td>
+            <td>Pukul 08.00 WIB s.d selesai</td>
+            <td>Kreasi Seni Islami (Gebyar Sholawat)</td>
+            <td>Tingkat DKM.</td>
+            <td>Aula Kantor Desa.</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Senin-Minggu, 24 s.d 30 Juni 2026</td>
+            <td>Pukul 15.00 WIB s.d selesai</td>
+            <td>Turnamen Sepak Bola U15</td>
+            <td>Tingkat RW se Desa Karyamukti.</td>
+            <td>Lapang Bola Sayakti.</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>Jumat, 26 Juni 2026</td>
+            <td>Pukul 13.00 WIB s.d selesai</td>
+            <td>Sertijab BPD (Periode Tahun 2026-2034)</td>
+            <td>Kepala Desa, Perangkat Desa, BPD, LKD dan Tokoh Masyarakat.</td>
+            <td>Aula Kantor Desa.</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>Minggu, 28 Juni 2026</td>
+            <td>Pukul 07.00 WIB s.d selesai</td>
+            <td>
+              <ul>
+                <li>Tahfidz</li>
+                <li>Kaligrafi</li>
+                <li>Pidato</li>
+              </ul>
+            </td>
+            <td>Tingkat Madrasah Diniyah.</td>
+            <td>Aula Kantor Desa.</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>Jumat, 10 Juli 2026</td>
+            <td>Pukul 13.00 WIB s.d selesai</td>
+            <td>Lomba PBB Komedi (RT, RW, Linmas, Kader PKK)</td>
+            <td>Tingkat RW Se-Desa Karyamukti.</td>
+            <td>Halaman Kantor Desa Karyamukti.</td>
+          </tr>
+          <tr>
+            <td>11</td>
+            <td>Minggu, 12 Juli 2026</td>
+            <td>Pukul 07.00 WIB s.d selesai</td>
+            <td>Jalan Sehat</td>
+            <td>Warga Masyarakat Desa.</td>
+            <td>Halaman Kantor Desa Karyamukti.</td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td>Senin, 13 Juli 2026</td>
+            <td>Pukul 19.00 WIB s.d selesai</td>
+            <td>
+              <ul>
+                <li>Lomba Cipta Menu: Menghias Nasi Liwet</li>
+                <li>Tabligh Akbar Ust. Ahmad Royani Albantani (Ust. Ruhay)</li>
+              </ul>
+            </td>
+            <td>Tingkat RT se Dusun Pabuaran dan Cigadung; Warga Masyarakat Desa.</td>
+            <td>Halaman Kantor Desa Karyamukti.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="schedule-grid">
+      <article class="card schedule-card">
+        <div class="schedule-head">
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div class="schedule-no">1</div>
+            <div class="schedule-day">
+              <strong>Minggu, 07 Juni 2026</strong>
+              <span>Rangkaian pembukaan dan kegiatan awal</span>
+            </div>
+          </div>
+          <div class="schedule-time">Pukul 07.00 WIB s.d selesai</div>
+        </div>
+        <ul class="activity-list">
+          <li>Upacara Hari Jadi Desa ke-47</li>
+          <li>Lomba Cipta Menu: Menghias Nasi Liwet</li>
+          <li>Ziarah Kubur</li>
+        </ul>
+        <div class="schedule-meta">
+          <div class="schedule-block">
+            <strong>Peserta</strong>
+            <p>Kepala Desa, Perangkat Desa, BPD, LKD dan Tokoh Masyarakat; Tingkat RT se Dusun Sukaharja; Perangkat Desa, BPD dan LKD.</p>
+          </div>
+          <div class="schedule-block">
+            <strong>Tempat / Lokasi</strong>
+            <p>Halaman Kantor Desa Karyamukti; Aula Desa Karyamukti; Makam alm. Kepala Desa.</p>
+          </div>
+        </div>
       </article>
-      <article class="card">
-        <strong>Kegiatan Warga</strong>
-        <p>Berisi lomba, kegiatan keluarga, olahraga, dan program kebersamaan yang melibatkan seluruh warga.</p>
+
+      <article class="card schedule-card">
+        <div class="schedule-head">
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div class="schedule-no">2</div>
+            <div class="schedule-day">
+              <strong>Senin-Rabu, 08 Juni s.d 08 Juli 2026</strong>
+              <span>Program lomba video</span>
+            </div>
+          </div>
+          <div class="schedule-time">Pukul 10.00 WIB s.d 14.00 WIB</div>
+        </div>
+        <ul class="activity-list">
+          <li>Lomba Video Hari Jadi Desa ke-47</li>
+        </ul>
+        <div class="schedule-meta">
+          <div class="schedule-block">
+            <strong>Peserta</strong>
+            <p>Tingkat RT se Desa Karyamukti.</p>
+          </div>
+          <div class="schedule-block">
+            <strong>Tempat / Lokasi</strong>
+            <p>Desa Karyamukti.</p>
+          </div>
+        </div>
       </article>
-      <article class="card">
-        <strong>Malam Puncak</strong>
-        <p>Pentas seni, hiburan warga, pembagian hadiah, dan penutupan resmi acara.</p>
+
+      <article class="card schedule-card">
+        <div class="schedule-head">
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div class="schedule-no">3</div>
+            <div class="schedule-day">
+              <strong>09 Juni 2026</strong>
+              <span>Kegiatan lomba anak</span>
+            </div>
+          </div>
+          <div class="schedule-time">Pukul 07.00 WIB s.d selesai</div>
+        </div>
+        <ul class="activity-list">
+          <li>Lomba Mewarnai</li>
+          <li>Lomba Kolase</li>
+        </ul>
+        <div class="schedule-meta">
+          <div class="schedule-block">
+            <strong>Peserta</strong>
+            <p>PAUD / RA se Desa Karyamukti.</p>
+          </div>
+          <div class="schedule-block">
+            <strong>Tempat / Lokasi</strong>
+            <p>Aula Kantor Desa.</p>
+          </div>
+        </div>
+        <p class="schedule-note">Catatan: nama hari pada foto kurang terbaca jelas, jadi saya pertahankan tanggal utamanya terlebih dahulu.</p>
+      </article>
+
+      <article class="card schedule-card">
+        <div class="schedule-head">
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div class="schedule-no">4</div>
+            <div class="schedule-day">
+              <strong>Senin, 15 Juni 2026</strong>
+              <span>Turnamen olahraga pelajar</span>
+            </div>
+          </div>
+          <div class="schedule-time">Pukul 08.00 WIB s.d selesai</div>
+        </div>
+        <ul class="activity-list">
+          <li>Turnamen Bola Volly Putera dan Puteri</li>
+        </ul>
+        <div class="schedule-meta">
+          <div class="schedule-block">
+            <strong>Peserta</strong>
+            <p>Tingkat SD / MI se Desa Karyamukti.</p>
+          </div>
+          <div class="schedule-block">
+            <strong>Tempat / Lokasi</strong>
+            <p>Lapang Volly SDN 3 Karyamukti.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="card schedule-card">
+        <div class="schedule-head">
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div class="schedule-no">5</div>
+            <div class="schedule-day">
+              <strong>Rabu, 17 Juni 2026</strong>
+              <span>Kegiatan pendidikan anak usia dini</span>
+            </div>
+          </div>
+          <div class="schedule-time">Pukul 08.00 WIB s.d selesai</div>
+        </div>
+        <ul class="activity-list">
+          <li>Perpisahan PAUD se Desa Karyamukti</li>
+        </ul>
+        <div class="schedule-meta">
+          <div class="schedule-block">
+            <strong>Peserta</strong>
+            <p>PAUD se Desa Karyamukti.</p>
+          </div>
+          <div class="schedule-block">
+            <strong>Tempat / Lokasi</strong>
+            <p>Aula Desa.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="card schedule-card">
+        <div class="schedule-head">
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div class="schedule-no">6</div>
+            <div class="schedule-day">
+              <strong>Selasa, 23 Juni 2026</strong>
+              <span>Kreasi seni islami</span>
+            </div>
+          </div>
+          <div class="schedule-time">Pukul 08.00 WIB s.d selesai</div>
+        </div>
+        <ul class="activity-list">
+          <li>Kreasi Seni Islami (Gebyar Sholawat)</li>
+        </ul>
+        <div class="schedule-meta">
+          <div class="schedule-block">
+            <strong>Peserta</strong>
+            <p>Tingkat DKM.</p>
+          </div>
+          <div class="schedule-block">
+            <strong>Tempat / Lokasi</strong>
+            <p>Aula Kantor Desa.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="card schedule-card">
+        <div class="schedule-head">
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div class="schedule-no">7</div>
+            <div class="schedule-day">
+              <strong>Senin-Minggu, 24 s.d 30 Juni 2026</strong>
+              <span>Turnamen sepak bola</span>
+            </div>
+          </div>
+          <div class="schedule-time">Pukul 15.00 WIB s.d selesai</div>
+        </div>
+        <ul class="activity-list">
+          <li>Turnamen Sepak Bola U15</li>
+        </ul>
+        <div class="schedule-meta">
+          <div class="schedule-block">
+            <strong>Peserta</strong>
+            <p>Tingkat RW se Desa Karyamukti.</p>
+          </div>
+          <div class="schedule-block">
+            <strong>Tempat / Lokasi</strong>
+            <p>Lapang Bola Sayakti.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="card schedule-card">
+        <div class="schedule-head">
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div class="schedule-no">8</div>
+            <div class="schedule-day">
+              <strong>Jumat, 26 Juni 2026</strong>
+              <span>Agenda pemerintahan desa</span>
+            </div>
+          </div>
+          <div class="schedule-time">Pukul 13.00 WIB s.d selesai</div>
+        </div>
+        <ul class="activity-list">
+          <li>Sertijab BPD (Periode Tahun 2026-2034)</li>
+        </ul>
+        <div class="schedule-meta">
+          <div class="schedule-block">
+            <strong>Peserta</strong>
+            <p>Kepala Desa, Perangkat Desa, BPD, LKD dan Tokoh Masyarakat.</p>
+          </div>
+          <div class="schedule-block">
+            <strong>Tempat / Lokasi</strong>
+            <p>Aula Kantor Desa.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="card schedule-card">
+        <div class="schedule-head">
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div class="schedule-no">9</div>
+            <div class="schedule-day">
+              <strong>Minggu, 28 Juni 2026</strong>
+              <span>Agenda keagamaan anak</span>
+            </div>
+          </div>
+          <div class="schedule-time">Pukul 07.00 WIB s.d selesai</div>
+        </div>
+        <ul class="activity-list">
+          <li>Tahfidz</li>
+          <li>Kaligrafi</li>
+          <li>Pidato</li>
+        </ul>
+        <div class="schedule-meta">
+          <div class="schedule-block">
+            <strong>Peserta</strong>
+            <p>Tingkat Madrasah Diniyah.</p>
+          </div>
+          <div class="schedule-block">
+            <strong>Tempat / Lokasi</strong>
+            <p>Aula Kantor Desa.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="card schedule-card">
+        <div class="schedule-head">
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div class="schedule-no">10</div>
+            <div class="schedule-day">
+              <strong>Jumat, 10 Juli 2026</strong>
+              <span>Lomba dan kegiatan masyarakat</span>
+            </div>
+          </div>
+          <div class="schedule-time">Pukul 13.00 WIB s.d selesai</div>
+        </div>
+        <ul class="activity-list">
+          <li>Lomba PBB Komedi (RT, RW, Linmas, Kader PKK)</li>
+        </ul>
+        <div class="schedule-meta">
+          <div class="schedule-block">
+            <strong>Peserta</strong>
+            <p>Tingkat RW Se-Desa Karyamukti.</p>
+          </div>
+          <div class="schedule-block">
+            <strong>Tempat / Lokasi</strong>
+            <p>Halaman Kantor Desa Karyamukti.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="card schedule-card">
+        <div class="schedule-head">
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div class="schedule-no">11</div>
+            <div class="schedule-day">
+              <strong>Minggu, 12 Juli 2026</strong>
+              <span>Agenda olahraga bersama warga</span>
+            </div>
+          </div>
+          <div class="schedule-time">Pukul 07.00 WIB s.d selesai</div>
+        </div>
+        <ul class="activity-list">
+          <li>Jalan Sehat</li>
+        </ul>
+        <div class="schedule-meta">
+          <div class="schedule-block">
+            <strong>Peserta</strong>
+            <p>Warga Masyarakat Desa.</p>
+          </div>
+          <div class="schedule-block">
+            <strong>Tempat / Lokasi</strong>
+            <p>Halaman Kantor Desa Karyamukti.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="card schedule-card">
+        <div class="schedule-head">
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div class="schedule-no">12</div>
+            <div class="schedule-day">
+              <strong>Senin, 13 Juli 2026</strong>
+              <span>Penutup lomba dan tabligh akbar</span>
+            </div>
+          </div>
+          <div class="schedule-time">Pukul 19.00 WIB s.d selesai</div>
+        </div>
+        <ul class="activity-list">
+          <li>Lomba Cipta Menu: Menghias Nasi Liwet</li>
+          <li>Tabligh Akbar Ust. Ahmad Royani Albantani (Ust. Ruhay)</li>
+        </ul>
+        <div class="schedule-meta">
+          <div class="schedule-block">
+            <strong>Peserta</strong>
+            <p>Tingkat RT se Dusun Pabuaran dan Cigadung; Warga Masyarakat Desa.</p>
+          </div>
+          <div class="schedule-block">
+            <strong>Tempat / Lokasi</strong>
+            <p>Halaman Kantor Desa Karyamukti.</p>
+          </div>
+        </div>
       </article>
     </section>
   </div>
 
   <button class="floating-btn share" type="button" id="shareButton">Bagikan</button>
+  <button class="floating-btn pdf" type="button" id="pdfButton">Download PDF</button>
   <button class="floating-btn back" type="button" id="backButton">Kembali</button>
 
   <script>
     const shareButton = document.getElementById("shareButton");
+    const pdfButton = document.getElementById("pdfButton");
     const backButton = document.getElementById("backButton");
 
     shareButton.addEventListener("click", async function () {
@@ -156,6 +794,10 @@
           alert("Tautan belum bisa dibagikan dari browser ini.");
         }
       }
+    });
+
+    pdfButton.addEventListener("click", function () {
+      window.print();
     });
 
     backButton.addEventListener("click", function () {
