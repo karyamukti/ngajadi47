@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buat Twibbon | Hari Jadi Desa Karyamukti ke-47</title>
+  <link rel="icon" href="logo/favicon.ico" type="image/x-icon">
+  <style>
+    :root {
+      --card: rgba(255, 250, 241, 0.94);
+      --ink: #302418;
+      --muted: #6e5a46;
+      --brand: #b33a30;
+      --brand-dark: #7f261f;
+      --line: rgba(93, 62, 34, 0.14);
+      --shadow: 0 18px 42px rgba(74, 41, 18, 0.12);
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(214, 165, 87, 0.22), transparent 26%),
+        linear-gradient(180deg, #fbf5ea 0%, #f6efe3 48%, #f1e6d6 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 28px 0 22px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 18px 20px;
+      background: rgba(255, 250, 244, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 999px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 28px rgba(70, 39, 17, 0.08);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .logo img {
+      display: block;
+      width: min(100%, 460px);
+      height: auto;
+    }
+
+    main {
+      padding: 0 0 24px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 28px rgba(67, 39, 21, 0.06);
+    }
+
+    .template-panel,
+    .editor-panel {
+      padding: 22px;
+    }
+
+    .panel-title {
+      margin: 0 0 8px;
+      font-size: 1.28rem;
+    }
+
+    .panel-copy {
+      margin: 0 0 18px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .template-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .template-btn {
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.55);
+      cursor: pointer;
+      text-align: left;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .template-btn:hover,
+    .template-btn.active {
+      transform: translateY(-3px);
+      border-color: rgba(179, 58, 48, 0.28);
+      box-shadow: 0 18px 30px rgba(67, 39, 21, 0.08);
+    }
+
+    .template-thumb {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 180px;
+      padding: 14px;
+      background:
+        linear-gradient(45deg, rgba(111, 90, 70, 0.08) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(111, 90, 70, 0.08) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(111, 90, 70, 0.08) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(111, 90, 70, 0.08) 75%);
+      background-size: 24px 24px;
+      background-position: 0 0, 0 12px, 12px -12px, -12px 0;
+    }
+
+    .template-thumb img {
+      display: block;
+      max-width: 100%;
+      max-height: 180px;
+      object-fit: contain;
+    }
+
+    .template-fallback {
+      padding: 18px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .template-meta {
+      padding: 14px 16px 16px;
+    }
+
+    .template-meta strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .template-meta span {
+      color: var(--muted);
+      font-size: 0.93rem;
+      line-height: 1.6;
+    }
+
+    .editor-preview {
+      display: grid;
+      place-items: center;
+      min-height: 420px;
+      padding: 20px;
+      margin-bottom: 18px;
+      border-radius: 22px;
+      background:
+        linear-gradient(45deg, rgba(111, 90, 70, 0.08) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(111, 90, 70, 0.08) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(111, 90, 70, 0.08) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(111, 90, 70, 0.08) 75%);
+      background-size: 24px 24px;
+      background-position: 0 0, 0 12px, 12px -12px, -12px 0;
+    }
+
+    canvas {
+      width: min(100%, 520px);
+      height: auto;
+      border-radius: 18px;
+      box-shadow: 0 14px 28px rgba(67, 39, 21, 0.08);
+      background: rgba(255, 255, 255, 0.68);
+    }
+
+    .controls {
+      display: grid;
+      gap: 16px;
+    }
+
+    .control-group {
+      display: grid;
+      gap: 10px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.54);
+    }
+
+    .control-group label,
+    .control-header {
+      font-weight: 700;
+    }
+
+    .control-group small {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    input[type="file"],
+    input[type="range"] {
+      width: 100%;
+    }
+
+    .range-row {
+      display: grid;
+      gap: 12px;
+    }
+
+    .range-row label {
+      display: grid;
+      gap: 6px;
+      font-weight: 600;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 18px;
+      border: 0;
+      border-radius: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .primary-btn {
+      background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+      color: #fff8ef;
+      box-shadow: 0 14px 24px rgba(127, 38, 31, 0.22);
+    }
+
+    .secondary-btn {
+      background: rgba(255, 255, 255, 0.76);
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+
+    .status-box {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .footer {
+      padding: 0 0 40px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .footer .shell {
+      text-align: right;
+    }
+
+    .floating-btn {
+      position: fixed;
+      z-index: 20;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 120px;
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(48, 36, 24, 0.9);
+      color: #fff8ef;
+      box-shadow: 0 16px 32px rgba(48, 36, 24, 0.22);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+
+    .floating-btn.share {
+      top: 18px;
+      right: 18px;
+    }
+
+    .floating-btn.back {
+      left: 18px;
+      bottom: 18px;
+    }
+
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .template-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        border-radius: 26px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .editor-preview {
+        min-height: 320px;
+        padding: 16px;
+      }
+
+      .floating-btn {
+        min-width: 0;
+        padding: 11px 15px;
+        font-size: 0.92rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="shell">
+      <div class="topbar">
+        <a class="logo" href="index.html" aria-label="Hari Jadi Desa Karyamukti ke-47">
+          <img src="logo/logo.png" alt="Logo Hari Jadi Desa Karyamukti ke-47">
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="layout">
+      <section class="card template-panel">
+        <h1 class="panel-title">Preview Template Twibbon</h1>
+        <p class="panel-copy">
+          Pilih salah satu frame twibbon. Area transparan pada file PNG akan otomatis menampilkan
+          foto pengunjung yang diunggah di panel editor.
+        </p>
+        <div class="template-grid" id="templateGrid"></div>
+      </section>
+
+      <section class="card editor-panel">
+        <h2 class="panel-title">Editor Twibbon</h2>
+        <p class="panel-copy">
+          Upload foto lalu atur posisi dan zoom agar pas di dalam twibbon. Hasil preview akan
+          langsung terlihat sebelum diunduh.
+        </p>
+
+        <div class="editor-preview">
+          <canvas id="twibbonCanvas" width="1080" height="1080" aria-label="Preview twibbon"></canvas>
+        </div>
+
+        <div class="controls">
+          <div class="control-group">
+            <label for="photoInput">Upload Foto</label>
+            <input id="photoInput" type="file" accept="image/*">
+            <small>Pilih foto pengunjung. Sistem akan menempatkan foto di belakang frame PNG transparan.</small>
+          </div>
+
+          <div class="control-group">
+            <div class="control-header">Atur Posisi Foto</div>
+            <div class="range-row">
+              <label for="zoomRange">Zoom
+                <input id="zoomRange" type="range" min="0.5" max="3" step="0.01" value="1">
+              </label>
+              <label for="offsetXRange">Geser Kanan / Kiri
+                <input id="offsetXRange" type="range" min="-500" max="500" step="1" value="0">
+              </label>
+              <label for="offsetYRange">Geser Atas / Bawah
+                <input id="offsetYRange" type="range" min="-500" max="500" step="1" value="0">
+              </label>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="primary-btn" type="button" id="downloadResult">Download Hasil</button>
+            <button class="secondary-btn" type="button" id="resetAdjustments">Reset Posisi</button>
+          </div>
+
+          <div class="status-box" id="statusBox">
+            Belum ada foto yang diunggah. Anda tetap bisa memilih template dulu.
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell">
+      Halaman twibbon siap dipakai untuk banyak frame PNG transparan.
+    </div>
+  </footer>
+
+  <button class="floating-btn share" type="button" id="shareButton">Bagikan</button>
+  <button class="floating-btn back" type="button" id="backButton">Kembali</button>
+
+  <script>
+    const templates = [
+      {
+        id: "frame-1",
+        name: "Twibbon Template 1",
+        file: "twibbon/frame-1.png",
+        note: "Ganti dengan file PNG transparan Anda. Contoh: twibbon/frame-1.png"
+      },
+      {
+        id: "frame-2",
+        name: "Twibbon Template 2",
+        file: "twibbon/frame-2.png",
+        note: "Siapkan lebih dari satu template agar pengunjung bisa memilih desain favorit."
+      },
+      {
+        id: "frame-3",
+        name: "Twibbon Template 3",
+        file: "twibbon/frame-3.png",
+        note: "File PNG transparan akan otomatis menjadi lapisan depan di atas foto."
+      }
+    ];
+
+    const templateGrid = document.getElementById("templateGrid");
+    const canvas = document.getElementById("twibbonCanvas");
+    const ctx = canvas.getContext("2d");
+    const photoInput = document.getElementById("photoInput");
+    const zoomRange = document.getElementById("zoomRange");
+    const offsetXRange = document.getElementById("offsetXRange");
+    const offsetYRange = document.getElementById("offsetYRange");
+    const downloadResult = document.getElementById("downloadResult");
+    const resetAdjustments = document.getElementById("resetAdjustments");
+    const statusBox = document.getElementById("statusBox");
+    const shareButton = document.getElementById("shareButton");
+    const backButton = document.getElementById("backButton");
+
+    let selectedTemplate = null;
+    let selectedTemplateImage = null;
+    let uploadedPhoto = null;
+    let photoScale = 1;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    function setStatus(message) {
+      statusBox.textContent = message;
+    }
+
+    function loadImage(src) {
+      return new Promise(function (resolve, reject) {
+        const image = new Image();
+        image.onload = function () {
+          resolve(image);
+        };
+        image.onerror = function () {
+          reject(new Error("Gagal memuat gambar: " + src));
+        };
+        image.src = src;
+      });
+    }
+
+    function renderTemplateCards() {
+      templates.forEach(function (template, index) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "template-btn";
+        button.dataset.templateId = template.id;
+
+        const thumb = document.createElement("div");
+        thumb.className = "template-thumb";
+
+        const preview = document.createElement("img");
+        preview.alt = template.name;
+        preview.src = template.file;
+        preview.addEventListener("error", function () {
+          preview.remove();
+          const fallback = document.createElement("div");
+          fallback.className = "template-fallback";
+          fallback.textContent = "Template belum tersedia. Tambahkan file " + template.file;
+          thumb.appendChild(fallback);
+        });
+        thumb.appendChild(preview);
+
+        const meta = document.createElement("div");
+        meta.className = "template-meta";
+        meta.innerHTML =
+          "<strong>" + template.name + "</strong>" +
+          "<span>" + template.note + "</span>";
+
+        button.appendChild(thumb);
+        button.appendChild(meta);
+        button.addEventListener("click", function () {
+          chooseTemplate(template.id);
+        });
+        templateGrid.appendChild(button);
+
+        if (index === 0) {
+          chooseTemplate(template.id);
+        }
+      });
+    }
+
+    async function chooseTemplate(templateId) {
+      selectedTemplate = templates.find(function (template) {
+        return template.id === templateId;
+      });
+
+      document.querySelectorAll(".template-btn").forEach(function (button) {
+        button.classList.toggle("active", button.dataset.templateId === templateId);
+      });
+
+      try {
+        selectedTemplateImage = await loadImage(selectedTemplate.file);
+        setStatus("Template " + selectedTemplate.name + " dipilih. Upload foto untuk melihat hasil jadi.");
+      } catch (error) {
+        selectedTemplateImage = null;
+        setStatus("Template " + selectedTemplate.name + " belum ada filenya. Tambahkan " + selectedTemplate.file + " lalu refresh halaman.");
+      }
+
+      drawCanvas();
+    }
+
+    function drawCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (uploadedPhoto) {
+        const baseScale = Math.max(canvas.width / uploadedPhoto.width, canvas.height / uploadedPhoto.height);
+        const finalScale = baseScale * photoScale;
+        const drawWidth = uploadedPhoto.width * finalScale;
+        const drawHeight = uploadedPhoto.height * finalScale;
+        const drawX = (canvas.width - drawWidth) / 2 + offsetX;
+        const drawY = (canvas.height - drawHeight) / 2 + offsetY;
+
+        ctx.drawImage(uploadedPhoto, drawX, drawY, drawWidth, drawHeight);
+      } else {
+        ctx.fillStyle = "rgba(255, 255, 255, 0.68)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#6e5a46";
+        ctx.font = "600 38px Segoe UI";
+        ctx.textAlign = "center";
+        ctx.fillText("Upload foto untuk mulai membuat twibbon", canvas.width / 2, canvas.height / 2);
+      }
+
+      if (selectedTemplateImage) {
+        ctx.drawImage(selectedTemplateImage, 0, 0, canvas.width, canvas.height);
+      } else {
+        ctx.strokeStyle = "rgba(179, 58, 48, 0.5)";
+        ctx.lineWidth = 8;
+        ctx.strokeRect(24, 24, canvas.width - 48, canvas.height - 48);
+      }
+    }
+
+    photoInput.addEventListener("change", async function (event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) {
+        return;
+      }
+
+      const fileUrl = URL.createObjectURL(file);
+      try {
+        uploadedPhoto = await loadImage(fileUrl);
+        setStatus("Foto berhasil diunggah. Atur posisi lalu download hasil jika sudah pas.");
+        drawCanvas();
+      } catch (error) {
+        setStatus("Foto gagal dimuat. Coba pilih file gambar lain.");
+      }
+    });
+
+    zoomRange.addEventListener("input", function () {
+      photoScale = Number(zoomRange.value);
+      drawCanvas();
+    });
+
+    offsetXRange.addEventListener("input", function () {
+      offsetX = Number(offsetXRange.value);
+      drawCanvas();
+    });
+
+    offsetYRange.addEventListener("input", function () {
+      offsetY = Number(offsetYRange.value);
+      drawCanvas();
+    });
+
+    resetAdjustments.addEventListener("click", function () {
+      photoScale = 1;
+      offsetX = 0;
+      offsetY = 0;
+      zoomRange.value = "1";
+      offsetXRange.value = "0";
+      offsetYRange.value = "0";
+      drawCanvas();
+    });
+
+    downloadResult.addEventListener("click", function () {
+      const safeName = (selectedTemplate ? selectedTemplate.id : "twibbon") + "-hasil.png";
+
+      if (canvas.toBlob) {
+        canvas.toBlob(function (blob) {
+          if (!blob) {
+            setStatus("Gagal menyiapkan file hasil download. Coba lagi.");
+            return;
+          }
+
+          const blobUrl = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = blobUrl;
+          link.download = safeName;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          setTimeout(function () {
+            URL.revokeObjectURL(blobUrl);
+          }, 1000);
+          setStatus("Hasil twibbon berhasil disiapkan untuk diunduh.");
+        }, "image/png");
+        return;
+      }
+
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = safeName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setStatus("Hasil twibbon berhasil disiapkan untuk diunduh.");
+    });
+
+    shareButton.addEventListener("click", async function () {
+      const shareData = {
+        title: document.title,
+        text: "Buat Twibbon Hari Jadi Desa Karyamukti ke-47",
+        url: window.location.href
+      };
+
+      try {
+        if (navigator.share) {
+          await navigator.share(shareData);
+          return;
+        }
+
+        await navigator.clipboard.writeText(window.location.href);
+        alert("Tautan halaman sudah disalin.");
+      } catch (error) {
+        if (error && error.name !== "AbortError") {
+          alert("Tautan belum bisa dibagikan dari browser ini.");
+        }
+      }
+    });
+
+    backButton.addEventListener("click", function () {
+      if (window.history.length > 1) {
+        window.history.back();
+        return;
+      }
+
+      window.location.href = "index.html";
+    });
+
+    renderTemplateCards();
+    drawCanvas();
+  </script>
+</body>
+</html>
