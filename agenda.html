@@ -100,7 +100,8 @@
     .schedule-day span,
     .schedule-time,
     .schedule-block p,
-    .schedule-note {
+    .schedule-note,
+    .participant-list {
       color: var(--muted);
     }
     .schedule-time {
@@ -133,6 +134,14 @@
     .schedule-block p {
       margin: 0;
       line-height: 1.7;
+    }
+    .participant-list {
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.7;
+    }
+    .participant-list li + li {
+      margin-top: 6px;
     }
     .schedule-note {
       margin: -4px 0 0;
@@ -231,6 +240,13 @@
     .print-table li {
       margin-bottom: 3px;
     }
+    .print-participant-list {
+      margin: 0;
+      padding-left: 16px;
+    }
+    .print-participant-list li {
+      margin-bottom: 4px;
+    }
     @media print {
       .topbar,
       .floating-btn,
@@ -298,7 +314,7 @@
     <section class="hero">
       <div class="eyebrow">Halaman Agenda</div>
       <h1>Jadwal Kegiatan</h1>
-      <p>Jadwal berikut disusun dari foto agenda yang Anda lampirkan. Jika ada satu-dua tulisan yang perlu disesuaikan lagi, saya bisa rapikan setelah Anda kirim koreksinya.</p>
+      <p>Hari Jadi Desa Karyamukti ke-47.</p>
     </section>
 
     <section class="print-table-wrap">
@@ -431,12 +447,17 @@
             <td>Senin, 13 Juli 2026</td>
             <td>Pukul 19.00 WIB s.d selesai</td>
             <td>
-              <ul>
+              <ul class="print-participant-list">
                 <li>Lomba Cipta Menu: Menghias Nasi Liwet</li>
-                <li>Tabligh Akbar Ust. Ahmad Royani Albantani (Ust. Ruhay)</li>
+                <li>Tabligh Akbar <b>Ust. Ahmad Royani Albantani (Ust. Ruhay)</b></li>
               </ul>
             </td>
-            <td>Tingkat RT se Dusun Pabuaran dan Cigadung; Warga Masyarakat Desa.</td>
+            <td>
+              <ul class="print-participant-list">
+                <li><strong>Lomba Cipta Menu:</strong> Tingkat RT se Dusun Pabuaran dan Cigadung.</li>
+                <li><strong>Tabligh Akbar:</strong> Warga Masyarakat Desa.</li>
+              </ul>
+            </td>
             <td>Halaman Kantor Desa Karyamukti.</td>
           </tr>
         </tbody>
@@ -749,12 +770,15 @@
         </div>
         <ul class="activity-list">
           <li>Lomba Cipta Menu: Menghias Nasi Liwet</li>
-          <li>Tabligh Akbar Ust. Ahmad Royani Albantani (Ust. Ruhay)</li>
+          <li>Tabligh Akbar <b>Ust. Ahmad Royani Albantani (Ust. Ruhay)</b></li>
         </ul>
         <div class="schedule-meta">
           <div class="schedule-block">
             <strong>Peserta</strong>
-            <p>Tingkat RT se Dusun Pabuaran dan Cigadung; Warga Masyarakat Desa.</p>
+            <ul class="participant-list">
+              <li>Lomba Cipta Menu: Tingkat RT se Dusun Pabuaran dan Cigadung.</li>
+              <li>Tabligh Akbar: Warga Masyarakat Desa.</li>
+            </ul>
           </div>
           <div class="schedule-block">
             <strong>Tempat / Lokasi</strong>
