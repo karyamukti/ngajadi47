@@ -447,6 +447,7 @@
 
     const templateGrid = document.getElementById("templateGrid");
     const canvas = document.getElementById("twibbonCanvas");
+    const editorPanel = document.querySelector(".editor-panel");
     const ctx = canvas.getContext("2d");
     const photoInput = document.getElementById("photoInput");
     const zoomRange = document.getElementById("zoomRange");
@@ -541,6 +542,15 @@
       }
 
       drawCanvas();
+
+      if (window.innerWidth <= 980) {
+        requestAnimationFrame(function () {
+          editorPanel.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        });
+      }
     }
 
     function drawCanvas() {
