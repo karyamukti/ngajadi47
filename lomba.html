@@ -60,12 +60,36 @@
     p { color: var(--muted); line-height: 1.7; }
     .grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 18px;
       margin: 22px 0 48px;
     }
     .card { padding: 24px; }
     .card strong { display: block; margin-bottom: 10px; font-size: 1.08rem; }
+    .card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .card li + li {
+      margin-top: 6px;
+    }
+    .linked-item {
+      margin-top: 10px;
+      list-style: none;
+      padding-left: 0;
+    }
+    .linked-item a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(179, 58, 48, 0.1);
+      color: #7f261f;
+      font-weight: 700;
+    }
     .floating-btn {
       position: fixed;
       z-index: 20;
@@ -110,21 +134,58 @@
     <section class="hero">
       <div class="eyebrow">Halaman Lomba</div>
       <h1>Mata Lomba</h1>
-      <p>Halaman ini dipisahkan agar daftar kategori lomba, syarat peserta, dan tautan pendaftaran bisa dikelola lebih rapi.</p>
+      <p>Ringkasan mata lomba ini diambil dari jadwal kegiatan agar pengunjung bisa melihat jenis lomba dan sasaran pesertanya dengan lebih cepat.</p>
     </section>
 
     <section class="grid">
       <article class="card">
-        <strong>Lomba Anak</strong>
-        <p>Contoh: mewarnai, permainan edukatif, dan lomba ramah anak lainnya.</p>
+        <strong>Lomba Anak Usia Dini</strong>
+        <ul>
+          <li>Lomba Mewarnai</li>
+          <li>Lomba Kolase</li>
+          <li>Peserta: PAUD / RA se Desa Karyamukti</li>
+        </ul>
       </article>
       <article class="card">
-        <strong>Lomba Remaja</strong>
-        <p>Contoh: turnamen olahraga, pentas kreativitas, dan kompetisi antar pemuda.</p>
+        <strong>Lomba Pelajar</strong>
+        <ul>
+          <li>Turnamen Bola Volly Putera dan Puteri</li>
+          <li>Peserta: Tingkat SD / MI se Desa Karyamukti</li>
+        </ul>
       </article>
       <article class="card">
-        <strong>Lomba Umum</strong>
-        <p>Contoh: lomba antar-RT, kegiatan keluarga, dan hiburan kebersamaan warga.</p>
+        <strong>Lomba Antar RT / RW</strong>
+        <ul>
+          <li>Lomba Video Hari Jadi Desa ke-47</li>
+          <li>Lomba PBB Komedi</li>
+          <li>Turnamen Sepak Bola U15</li>
+          <li class="linked-item"><a href="juknis-lomba-video.html">Lihat Aturan / Juknis Lomba Video</a></li>
+        </ul>
+      </article>
+      <article class="card">
+        <strong>Lomba Kreasi & Keagamaan</strong>
+        <ul>
+          <li>Kreasi Seni Islami (Gebyar Sholawat)</li>
+          <li>Tahfidz</li>
+          <li>Kaligrafi</li>
+          <li>Pidato</li>
+        </ul>
+      </article>
+      <article class="card">
+        <strong>Lomba Cipta Menu</strong>
+        <ul>
+          <li>Menghias Nasi Liwet</li>
+          <li>07 Juni 2026: Tingkat RT se Dusun Sukaharja</li>
+          <li>13 Juli 2026: Tingkat RT se Dusun Pabuaran dan Cigadung</li>
+        </ul>
+      </article>
+      <article class="card">
+        <strong>Kegiatan Pendukung</strong>
+        <ul>
+          <li>Jalan Sehat</li>
+          <li>Tabligh Akbar</li>
+          <li>Perpisahan PAUD se Desa Karyamukti</li>
+        </ul>
       </article>
     </section>
   </div>

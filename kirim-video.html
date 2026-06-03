@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kirim Video Sekarang | Hari Jadi Desa Karyamukti ke-47</title>
+  <link rel="icon" href="logo/favicon.ico" type="image/x-icon">
+  <style>
+    :root {
+      --card: rgba(255, 250, 241, 0.94);
+      --ink: #302418;
+      --muted: #6e5a46;
+      --line: rgba(93, 62, 34, 0.14);
+      --shadow: 0 18px 42px rgba(74, 41, 18, 0.12);
+      --radius: 24px;
+      --brand: #b33a30;
+      --brand-dark: #7f261f;
+      --soft: rgba(255, 255, 255, 0.68);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(214, 165, 87, 0.22), transparent 26%),
+        linear-gradient(180deg, #fbf5ea 0%, #f6efe3 48%, #f1e6d6 100%);
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    .shell { width: min(1080px, calc(100% - 32px)); margin: 0 auto; }
+    .topbar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 18px 20px;
+      margin: 28px 0 24px;
+      background: rgba(255, 250, 244, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 999px;
+      box-shadow: 0 10px 28px rgba(70, 39, 17, 0.08);
+    }
+    .logo { display: flex; justify-content: center; width: 100%; }
+    .logo img { display: block; width: min(100%, 460px); height: auto; }
+    .hero, .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 4px);
+      box-shadow: var(--shadow);
+    }
+    .hero, .card { padding: 28px; }
+    .eyebrow {
+      display: inline-block;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(111, 90, 70, 0.12);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    h1 { margin: 16px 0 10px; font-size: clamp(2rem, 5vw, 3.4rem); letter-spacing: -0.04em; }
+    p, li, label { color: var(--muted); line-height: 1.7; }
+    .layout {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 18px;
+      margin: 22px 0 48px;
+    }
+    .card strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+    }
+    .card ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+    .form-grid {
+      display: grid;
+      gap: 14px;
+    }
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+    .field label {
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--soft);
+      color: var(--ink);
+    }
+    .field textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .primary-btn,
+    .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 18px;
+      border-radius: 14px;
+      border: 0;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .primary-btn {
+      background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+      color: #fff8ef;
+      box-shadow: 0 14px 24px rgba(127, 38, 31, 0.22);
+    }
+    .secondary-btn {
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px solid var(--line);
+      color: var(--ink);
+    }
+    .notice {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(179, 58, 48, 0.08);
+      color: var(--ink);
+    }
+    .floating-btn {
+      position: fixed;
+      z-index: 20;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 120px;
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(48, 36, 24, 0.9);
+      color: #fff8ef;
+      box-shadow: 0 16px 32px rgba(48, 36, 24, 0.22);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+    .floating-btn.share { top: 18px; right: 18px; }
+    .floating-btn.back { left: 18px; bottom: 18px; }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .topbar { border-radius: 24px; }
+    }
+    @media (max-width: 720px) {
+      .floating-btn {
+        min-width: 0;
+        padding: 11px 15px;
+        font-size: 0.92rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar">
+      <a class="logo" href="index.html" aria-label="Hari Jadi Desa Karyamukti ke-47">
+        <img src="logo/logo.png" alt="Logo Hari Jadi Desa Karyamukti ke-47">
+      </a>
+    </div>
+
+    <section class="hero">
+      <div class="eyebrow">Form Pengiriman</div>
+      <h1>Kirim Video Sekarang</h1>
+      <p>Halaman pengiriman video lomba dengan tampilan yang disesuaikan ke identitas Hari Jadi Desa Karyamukti ke-47. Form ini bisa dipakai sebagai langkah awal sebelum disambungkan ke Google Form, WhatsApp panitia, atau backend pengumpulan resmi.</p>
+    </section>
+
+    <section class="layout">
+      <article class="card">
+        <strong>Ringkasan Pengiriman</strong>
+        <ul>
+          <li>Peserta: perwakilan RW 01 sampai RW 06 Desa Karyamukti</li>
+          <li>Periode pengiriman: 08 Juni 2026 s./d. 08 Juli 2026</li>
+          <li>Waktu pelaksanaan pada agenda: pukul 10.00 WIB s./d. 14.00 WIB</li>
+          <li>Format video: `.MP4`</li>
+          <li>Setiap RW mengirimkan 1 video kreasi</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <strong>Form Pengiriman Video</strong>
+        <form class="form-grid" id="videoForm">
+          <div class="field">
+            <label for="rw">RW</label>
+            <select id="rw" name="rw" required>
+              <option value="">Pilih RW</option>
+              <option>RW 01</option>
+              <option>RW 02</option>
+              <option>RW 03</option>
+              <option>RW 04</option>
+              <option>RW 05</option>
+              <option>RW 06</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="judul">Judul Video</label>
+            <input id="judul" name="judul" type="text" placeholder="Masukkan judul video" required>
+          </div>
+
+          <div class="field">
+            <label for="ketua">Nama Pengirim / Perwakilan</label>
+            <input id="ketua" name="ketua" type="text" placeholder="Nama perwakilan RW" required>
+          </div>
+
+          <div class="field">
+            <label for="whatsapp">Nomor WhatsApp</label>
+            <input id="whatsapp" name="whatsapp" type="tel" placeholder="08xxxxxxxxxx" required>
+          </div>
+
+          <div class="field">
+            <label for="linkVideo">Link Google Drive / Link Video</label>
+            <input id="linkVideo" name="linkVideo" type="url" placeholder="https://..." required>
+          </div>
+
+          <div class="field">
+            <label for="deskripsi">Deskripsi Singkat</label>
+            <textarea id="deskripsi" name="deskripsi" placeholder="Tulis deskripsi singkat video"></textarea>
+          </div>
+
+          <div class="action-row">
+            <button class="primary-btn" type="submit">Kirim Data Video</button>
+            <a class="secondary-btn" href="juknis-lomba-video.html">Lihat Juknis</a>
+          </div>
+        </form>
+
+        <div class="notice" id="formNotice">
+          Form ini masih mode halaman statis. Setelah Anda punya tujuan kirim resmi, saya bisa sambungkan ke Google Form, WhatsApp panitia, atau sistem upload khusus.
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <button class="floating-btn share" type="button" id="shareButton">Bagikan</button>
+  <button class="floating-btn back" type="button" id="backButton">Kembali</button>
+
+  <script>
+    const shareButton = document.getElementById("shareButton");
+    const backButton = document.getElementById("backButton");
+    const videoForm = document.getElementById("videoForm");
+    const formNotice = document.getElementById("formNotice");
+
+    shareButton.addEventListener("click", async function () {
+      const shareData = {
+        title: document.title,
+        text: "Kirim Video Lomba Hari Jadi Desa Karyamukti ke-47",
+        url: window.location.href
+      };
+
+      try {
+        if (navigator.share) {
+          await navigator.share(shareData);
+          return;
+        }
+
+        await navigator.clipboard.writeText(window.location.href);
+        alert("Tautan halaman sudah disalin.");
+      } catch (error) {
+        if (error && error.name !== "AbortError") {
+          alert("Tautan belum bisa dibagikan dari browser ini.");
+        }
+      }
+    });
+
+    backButton.addEventListener("click", function () {
+      if (window.history.length > 1) {
+        window.history.back();
+        return;
+      }
+
+      window.location.href = "juknis-lomba-video.html";
+    });
+
+    videoForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      formNotice.textContent = "Data video siap dikirim. Jika Anda ingin, saya bisa sambungkan form ini ke Google Form, WhatsApp panitia, atau endpoint pengumpulan resmi.";
+    });
+  </script>
+</body>
+</html>
