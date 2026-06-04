@@ -103,6 +103,10 @@
       min-height: 120px;
       resize: vertical;
     }
+    .field select:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
     .action-row {
       display: flex;
       flex-wrap: wrap;
@@ -125,6 +129,12 @@
       color: #fff8ef;
       box-shadow: 0 14px 24px rgba(127, 38, 31, 0.22);
     }
+    .primary-btn:disabled {
+      background: #a7a19a;
+      color: #f7f2ec;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
     .secondary-btn {
       background: rgba(255, 255, 255, 0.76);
       border: 1px solid var(--line);
@@ -136,6 +146,10 @@
       border-radius: 16px;
       background: rgba(179, 58, 48, 0.08);
       color: var(--ink);
+    }
+    .inline-link {
+      color: var(--brand-dark);
+      font-weight: 700;
     }
     .floating-btn {
       position: fixed;
@@ -181,18 +195,17 @@
     <section class="hero">
       <div class="eyebrow">Form Pengiriman</div>
       <h1>Kirim Video Sekarang</h1>
-      <p>Halaman pengiriman video lomba dengan tampilan yang disesuaikan ke identitas Hari Jadi Desa Karyamukti ke-47. Form ini bisa dipakai sebagai langkah awal sebelum disambungkan ke Google Form, WhatsApp panitia, atau backend pengumpulan resmi.</p>
     </section>
 
     <section class="layout">
       <article class="card">
         <strong>Ringkasan Pengiriman</strong>
         <ul>
-          <li>Peserta: perwakilan RW 01 sampai RW 06 Desa Karyamukti</li>
-          <li>Periode pengiriman: 08 Juni 2026 s./d. 08 Juli 2026</li>
-          <li>Waktu pelaksanaan pada agenda: pukul 10.00 WIB s./d. 14.00 WIB</li>
+          <li>Peserta: perwakilan dari setiap RT se-Desa Karyamukti</li>
+          <li>Periode pengiriman: 08 Juni 2026 s./d. 30 Juni 2026</li>
+          <li>Pengiriman file yang melewati pukul 14.00 WIB akan di upload pada hari berikutnya</li>
+          <li>Video yang sudah dikirim ke Panitia dan di upload ke Media Resmi, maka tidak dapat di rubah/ revisi/ ganti</li>
           <li>Format video: `.MP4`</li>
-          <li>Setiap RW mengirimkan 1 video kreasi</li>
         </ul>
       </article>
 
@@ -200,15 +213,23 @@
         <strong>Form Pengiriman Video</strong>
         <form class="form-grid" id="videoForm">
           <div class="field">
+            <label for="dusun">Dusun</label>
+            <select id="dusun" name="dusun" required>
+              <option value="">Pilih Dusun</option>
+            </select>
+          </div>
+
+          <div class="field">
             <label for="rw">RW</label>
-            <select id="rw" name="rw" required>
+            <select id="rw" name="rw" required disabled>
               <option value="">Pilih RW</option>
-              <option>RW 01</option>
-              <option>RW 02</option>
-              <option>RW 03</option>
-              <option>RW 04</option>
-              <option>RW 05</option>
-              <option>RW 06</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="rt">RT</label>
+            <select id="rt" name="rt" required disabled>
+              <option value="">Pilih RT</option>
             </select>
           </div>
 
@@ -218,33 +239,23 @@
           </div>
 
           <div class="field">
-            <label for="ketua">Nama Pengirim / Perwakilan</label>
-            <input id="ketua" name="ketua" type="text" placeholder="Nama perwakilan RW" required>
-          </div>
-
-          <div class="field">
-            <label for="whatsapp">Nomor WhatsApp</label>
-            <input id="whatsapp" name="whatsapp" type="tel" placeholder="08xxxxxxxxxx" required>
-          </div>
-
-          <div class="field">
-            <label for="linkVideo">Link Google Drive / Link Video</label>
-            <input id="linkVideo" name="linkVideo" type="url" placeholder="https://..." required>
-          </div>
-
-          <div class="field">
             <label for="deskripsi">Deskripsi Singkat</label>
             <textarea id="deskripsi" name="deskripsi" placeholder="Tulis deskripsi singkat video"></textarea>
           </div>
 
+          <div class="field">
+            <label for="linkVideo">Link Google Drive / Link Video</label>
+            <input id="linkVideo" name="linkVideo" type="url" placeholder="https://...">
+            <small>Kosongkan jika ingin mengirim file langsung ke WA panitia setelah klik Kirim.</small>
+          </div>
+
           <div class="action-row">
-            <button class="primary-btn" type="submit">Kirim Data Video</button>
+            <button class="primary-btn" type="submit" id="submitButton">Kirim Data Video</button>
             <a class="secondary-btn" href="juknis-lomba-video.html">Lihat Juknis</a>
           </div>
         </form>
-
-        <div class="notice" id="formNotice">
-          Form ini masih mode halaman statis. Setelah Anda punya tujuan kirim resmi, saya bisa sambungkan ke Google Form, WhatsApp panitia, atau sistem upload khusus.
+        <div class="notice" id="deadlineNotice">
+          Tombol kirim tidak akan tersedia jika melebihi tanggal 30 Juni 2026.
         </div>
       </article>
     </section>
@@ -257,7 +268,72 @@
     const shareButton = document.getElementById("shareButton");
     const backButton = document.getElementById("backButton");
     const videoForm = document.getElementById("videoForm");
-    const formNotice = document.getElementById("formNotice");
+    const submitButton = document.getElementById("submitButton");
+    const deadlineNotice = document.getElementById("deadlineNotice");
+    const dusunSelect = document.getElementById("dusun");
+    const rwSelect = document.getElementById("rw");
+    const rtSelect = document.getElementById("rt");
+
+    const wilayah = {
+      "Pabuaran": {
+        "RW 01": ["RT 01", "RT 02", "RT 03", "RT 04", "RT 05", "RT 10"],
+        "RW 02": ["RT 06", "RT 07", "RT 08", "RT 09", "RT 11", "RT 12"]
+      },
+      "Cigadung": {
+        "RW 03": ["RT 01", "RT 02", "RT 03", "RT 04", "RT 05", "RT 06", "RT 07", "RT 08"],
+        "RW 04": ["RT 09", "RT 10", "RT 11", "RT 12", "RT 13", "RT 14"]
+      },
+      "Sukaharja": {
+        "RW 05": ["RT 01", "RT 02", "RT 03", "RT 04"],
+        "RW 06": ["RT 05", "RT 06", "RT 07"]
+      }
+    };
+
+    function fillSelect(selectEl, placeholder, items) {
+      selectEl.innerHTML = "";
+      const placeholderOption = document.createElement("option");
+      placeholderOption.value = "";
+      placeholderOption.textContent = placeholder;
+      selectEl.appendChild(placeholderOption);
+
+      items.forEach(function (item) {
+        const option = document.createElement("option");
+        option.value = item;
+        option.textContent = item;
+        selectEl.appendChild(option);
+      });
+    }
+
+    fillSelect(dusunSelect, "Pilih Dusun", Object.keys(wilayah));
+
+    dusunSelect.addEventListener("change", function () {
+      const dusun = dusunSelect.value;
+      fillSelect(rwSelect, "Pilih RW", dusun ? Object.keys(wilayah[dusun]) : []);
+      rwSelect.disabled = !dusun;
+      fillSelect(rtSelect, "Pilih RT", []);
+      rtSelect.disabled = true;
+    });
+
+    rwSelect.addEventListener("change", function () {
+      const dusun = dusunSelect.value;
+      const rw = rwSelect.value;
+      const rtList = dusun && rw ? wilayah[dusun][rw] : [];
+      fillSelect(rtSelect, "Pilih RT", rtList);
+      rtSelect.disabled = rtList.length === 0;
+    });
+
+    function updateDeadlineState() {
+      const deadline = new Date("2026-06-30T23:59:59+07:00");
+      const now = new Date();
+      const expired = now > deadline;
+
+      submitButton.disabled = expired;
+      if (expired) {
+        deadlineNotice.innerHTML = "<strong>Periode pengiriman sudah ditutup.</strong> Tombol kirim dinonaktifkan karena telah melewati tanggal 30 Juni 2026.";
+      } else {
+        deadlineNotice.textContent = "Tombol kirim tidak akan tersedia jika melebihi tanggal 30 Juni 2026.";
+      }
+    }
 
     shareButton.addEventListener("click", async function () {
       const shareData = {
@@ -292,8 +368,27 @@
 
     videoForm.addEventListener("submit", function (event) {
       event.preventDefault();
-      formNotice.textContent = "Data video siap dikirim. Jika Anda ingin, saya bisa sambungkan form ini ke Google Form, WhatsApp panitia, atau endpoint pengumpulan resmi.";
+
+      const formData = new FormData(videoForm);
+      const dusun = formData.get("dusun");
+      const rw = formData.get("rw");
+      const rt = formData.get("rt");
+      const identitasWilayah = rt + "/" + rw.replace("RW ", "") + " " + dusun;
+      const linkVideo = formData.get("linkVideo");
+      const pesan = [
+        "Pengiriman Video Hari Jadi Desa Karyamukti ke-47",
+        "",
+        "Wilayah: " + identitasWilayah,
+        "Judul Video: " + formData.get("judul"),
+        "Link Video: " + (linkVideo || "Akan dikirim langsung melalui WhatsApp panitia"),
+        "Deskripsi: " + (formData.get("deskripsi") || "-")
+      ].join("\n");
+
+      const waUrl = "https://wa.me/6285173361698?text=" + encodeURIComponent(pesan);
+      window.open(waUrl, "_blank", "noopener,noreferrer");
     });
+
+    updateDeadlineState();
   </script>
 </body>
 </html>
