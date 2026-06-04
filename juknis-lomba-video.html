@@ -107,11 +107,6 @@
     }
     .floating-btn.share { top: 18px; right: 18px; }
     .floating-btn.back { left: 18px; bottom: 18px; }
-    .floating-btn.pdf {
-      right: 18px;
-      bottom: 18px;
-      background: #2d2d2d;
-    }
     .cta {
       display: inline-flex;
       align-items: center;
@@ -180,9 +175,6 @@
         min-width: 0;
         padding: 11px 15px;
         font-size: 0.92rem;
-      }
-      .floating-btn.pdf {
-        bottom: 74px;
       }
     }
   </style>
@@ -274,12 +266,10 @@
   </div>
 
   <button class="floating-btn share" type="button" id="shareButton">Bagikan</button>
-  <button class="floating-btn pdf" type="button" id="pdfButton">Print PDF</button>
   <button class="floating-btn back" type="button" id="backButton">Kembali</button>
 
   <script>
     const shareButton = document.getElementById("shareButton");
-    const pdfButton = document.getElementById("pdfButton");
     const backButton = document.getElementById("backButton");
 
     shareButton.addEventListener("click", async function () {
@@ -302,10 +292,6 @@
           alert("Tautan belum bisa dibagikan dari browser ini.");
         }
       }
-    });
-
-    pdfButton.addEventListener("click", function () {
-      window.print();
     });
 
     backButton.addEventListener("click", function () {
