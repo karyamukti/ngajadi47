@@ -107,6 +107,11 @@
     }
     .floating-btn.share { top: 18px; right: 18px; }
     .floating-btn.back { left: 18px; bottom: 18px; }
+    .floating-btn.pdf {
+      right: 18px;
+      bottom: 18px;
+      background: #2d2d2d;
+    }
     .cta {
       display: inline-flex;
       align-items: center;
@@ -117,11 +122,67 @@
       color: #fff8ef;
       font-weight: 700;
     }
+    @media print {
+      body {
+        background: #ffffff;
+        color: #000000;
+        font-family: "Times New Roman", Times, serif;
+      }
+      .topbar,
+      .floating-btn,
+      .cta {
+        display: none !important;
+      }
+      .shell {
+        width: 100%;
+        max-width: none;
+      }
+      .hero,
+      .card {
+        background: #ffffff;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 0;
+      }
+      .hero {
+        margin-bottom: 18px;
+      }
+      .eyebrow {
+        display: none;
+      }
+      h1 {
+        margin: 0 0 10px;
+        font-size: 24px;
+        letter-spacing: 0;
+        color: #000000;
+      }
+      p,
+      li,
+      .card ol,
+      .card ul {
+        color: #000000;
+      }
+      .stack {
+        gap: 14px;
+        margin: 0;
+      }
+      .card strong {
+        color: #000000;
+      }
+      .inline-link {
+        color: #000000;
+        text-decoration: underline;
+      }
+    }
     @media (max-width: 720px) {
       .floating-btn {
         min-width: 0;
         padding: 11px 15px;
         font-size: 0.92rem;
+      }
+      .floating-btn.pdf {
+        bottom: 74px;
       }
     }
   </style>
@@ -182,7 +243,7 @@
                 <li>Deskripsi Singkat</li>
               </ul>
               <li>Panitia akan mengunggah video tersebut ke media sosial resmi Pemerintah Desa sesuai urutan pengiriman video kepada panitia.</li>
-              <li><u>Periode pengiriman</u> video mulai tanggal 08 Juni 2026 <b>s./d. 30 Juni 2026</b>.</li>
+              <li><u>Periode pengiriman</u> video mulai tanggal 08 Juni 2026 <b>s./d. 20 Juni 2026</b>.</li>
             </ul>
           </li>
           <li>
@@ -212,10 +273,12 @@
   </div>
 
   <button class="floating-btn share" type="button" id="shareButton">Bagikan</button>
+  <button class="floating-btn pdf" type="button" id="pdfButton">Print PDF</button>
   <button class="floating-btn back" type="button" id="backButton">Kembali</button>
 
   <script>
     const shareButton = document.getElementById("shareButton");
+    const pdfButton = document.getElementById("pdfButton");
     const backButton = document.getElementById("backButton");
 
     shareButton.addEventListener("click", async function () {
@@ -238,6 +301,10 @@
           alert("Tautan belum bisa dibagikan dari browser ini.");
         }
       }
+    });
+
+    pdfButton.addEventListener("click", function () {
+      window.print();
     });
 
     backButton.addEventListener("click", function () {

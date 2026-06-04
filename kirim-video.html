@@ -202,7 +202,7 @@
         <strong>Ringkasan Pengiriman</strong>
         <ul>
           <li>Peserta: perwakilan dari setiap RT se-Desa Karyamukti</li>
-          <li>Periode pengiriman: 08 Juni 2026 s./d. 30 Juni 2026</li>
+          <li>Periode pengiriman: 08 Juni 2026 s./d. 20 Juni 2026</li>
           <li>Pengiriman file yang melewati pukul 14.00 WIB akan di upload pada hari berikutnya</li>
           <li>Video yang sudah dikirim ke Panitia dan di upload ke Media Resmi, maka tidak dapat di rubah/ revisi/ ganti</li>
           <li>Format video: `.MP4`</li>
@@ -255,7 +255,7 @@
           </div>
         </form>
         <div class="notice" id="deadlineNotice">
-          Tombol kirim tidak akan tersedia jika melebihi tanggal 30 Juni 2026.
+          Tombol kirim tidak akan tersedia jika melebihi tanggal 20 Juni 2026.
         </div>
       </article>
     </section>
@@ -323,15 +323,15 @@
     });
 
     function updateDeadlineState() {
-      const deadline = new Date("2026-06-30T23:59:59+07:00");
+      const deadline = new Date("2026-06-20T23:59:59+07:00");
       const now = new Date();
       const expired = now > deadline;
 
       submitButton.disabled = expired;
       if (expired) {
-        deadlineNotice.innerHTML = "<strong>Periode pengiriman sudah ditutup.</strong> Tombol kirim dinonaktifkan karena telah melewati tanggal 30 Juni 2026.";
+        deadlineNotice.innerHTML = "<strong>Periode pengiriman sudah ditutup.</strong> Tombol kirim dinonaktifkan karena telah melewati tanggal 20 Juni 2026.";
       } else {
-        deadlineNotice.textContent = "Tombol kirim tidak akan tersedia jika melebihi tanggal 30 Juni 2026.";
+        deadlineNotice.textContent = "Tombol kirim tidak akan tersedia jika melebihi tanggal 20 Juni 2026.";
       }
     }
 
