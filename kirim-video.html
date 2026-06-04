@@ -380,8 +380,8 @@
         "",
         "Wilayah: " + identitasWilayah,
         "Judul Video: " + formData.get("judul"),
-        "Link Video: " + (linkVideo || "Akan dikirim langsung melalui WhatsApp panitia"),
-        "Deskripsi: " + (formData.get("deskripsi") || "-")
+        "Deskripsi: " + (formData.get("deskripsi") || "-"),
+        "Link Video: " + (linkVideo || "Akan dikirim langsung melalui WhatsApp panitia")
       ].join("\n");
 
       const waUrl = "https://wa.me/6285173361698?text=" + encodeURIComponent(pesan);
