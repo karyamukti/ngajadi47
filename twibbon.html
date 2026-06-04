@@ -191,6 +191,7 @@
         linear-gradient(-45deg, transparent 75%, rgba(111, 90, 70, 0.08) 75%);
       background-size: 24px 24px;
       background-position: 0 0, 0 12px, 12px -12px, -12px 0;
+      touch-action: none;
     }
 
     canvas {
@@ -399,6 +400,7 @@
                 <input id="offsetYRange" type="range" min="-500" max="500" step="1" value="0">
               </label>
             </div>
+            <small>Di HP, foto juga bisa digeser dengan satu jari dan di-zoom dengan pinch dua jari langsung pada preview.</small>
           </div>
 
           <div class="actions">
@@ -416,7 +418,7 @@
 
   <footer class="footer">
     <div class="shell">
-      Halaman twibbon siap dipakai untuk banyak frame PNG transparan.
+      Karyamukti Ngajadi (7 Juni 1979 - 2026)
     </div>
   </footer>
 
@@ -448,6 +450,7 @@
     const templateGrid = document.getElementById("templateGrid");
     const canvas = document.getElementById("twibbonCanvas");
     const editorPanel = document.querySelector(".editor-panel");
+    const editorPreview = document.querySelector(".editor-preview");
     const ctx = canvas.getContext("2d");
     const photoInput = document.getElementById("photoInput");
     const zoomRange = document.getElementById("zoomRange");
@@ -465,6 +468,8 @@
     let photoScale = 1;
     let offsetX = 0;
     let offsetY = 0;
+    let dragState = null;
+    let pinchState = null;
 
     function setStatus(message) {
       statusBox.textContent = message;
@@ -583,6 +588,25 @@
       }
     }
 
+    function syncControls() {
+      zoomRange.value = String(photoScale);
+      offsetXRange.value = String(Math.round(offsetX));
+      offsetYRange.value = String(Math.round(offsetY));
+    }
+
+    function getTouchDistance(touchA, touchB) {
+      const dx = touchB.clientX - touchA.clientX;
+      const dy = touchB.clientY - touchA.clientY;
+      return Math.hypot(dx, dy);
+    }
+
+    function getTouchCenter(touchA, touchB) {
+      return {
+        x: (touchA.clientX + touchB.clientX) / 2,
+        y: (touchA.clientY + touchB.clientY) / 2
+      };
+    }
+
     photoInput.addEventListener("change", async function (event) {
       const file = event.target.files && event.target.files[0];
       if (!file) {
@@ -618,10 +642,81 @@
       photoScale = 1;
       offsetX = 0;
       offsetY = 0;
-      zoomRange.value = "1";
-      offsetXRange.value = "0";
-      offsetYRange.value = "0";
+      syncControls();
       drawCanvas();
+    });
+
+    editorPreview.addEventListener("touchstart", function (event) {
+      if (!uploadedPhoto) {
+        return;
+      }
+
+      if (event.touches.length === 1) {
+        dragState = {
+          x: event.touches[0].clientX,
+          y: event.touches[0].clientY,
+          offsetX: offsetX,
+          offsetY: offsetY
+        };
+        pinchState = null;
+      } else if (event.touches.length === 2) {
+        const center = getTouchCenter(event.touches[0], event.touches[1]);
+        pinchState = {
+          distance: getTouchDistance(event.touches[0], event.touches[1]),
+          scale: photoScale,
+          centerX: center.x,
+          centerY: center.y,
+          offsetX: offsetX,
+          offsetY: offsetY
+        };
+        dragState = null;
+      }
+    }, { passive: true });
+
+    editorPreview.addEventListener("touchmove", function (event) {
+      if (!uploadedPhoto) {
+        return;
+      }
+
+      if (event.touches.length === 1 && dragState) {
+        event.preventDefault();
+        offsetX = dragState.offsetX + (event.touches[0].clientX - dragState.x) * 2;
+        offsetY = dragState.offsetY + (event.touches[0].clientY - dragState.y) * 2;
+        syncControls();
+        drawCanvas();
+        return;
+      }
+
+      if (event.touches.length === 2 && pinchState) {
+        event.preventDefault();
+        const currentDistance = getTouchDistance(event.touches[0], event.touches[1]);
+        const currentCenter = getTouchCenter(event.touches[0], event.touches[1]);
+        const nextScale = pinchState.scale * (currentDistance / pinchState.distance);
+
+        photoScale = Math.max(0.5, Math.min(3, nextScale));
+        offsetX = pinchState.offsetX + (currentCenter.x - pinchState.centerX) * 2;
+        offsetY = pinchState.offsetY + (currentCenter.y - pinchState.centerY) * 2;
+        syncControls();
+        drawCanvas();
+      }
+    }, { passive: false });
+
+    editorPreview.addEventListener("touchend", function (event) {
+      if (event.touches.length === 0) {
+        dragState = null;
+        pinchState = null;
+        return;
+      }
+
+      if (event.touches.length === 1) {
+        dragState = {
+          x: event.touches[0].clientX,
+          y: event.touches[0].clientY,
+          offsetX: offsetX,
+          offsetY: offsetY
+        };
+        pinchState = null;
+      }
     });
 
     downloadResult.addEventListener("click", function () {
