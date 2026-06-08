@@ -75,7 +75,11 @@
       margin: 22px 0 48px;
     }
     .table-wrap {
-      overflow: auto;
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
       border: 1px solid var(--line);
       border-radius: 18px;
       background: rgba(255, 255, 255, 0.55);
@@ -214,6 +218,19 @@
     .floating-btn.share { top: 18px; right: 18px; }
     .floating-btn.back { left: 18px; bottom: 18px; }
     @media (max-width: 720px) {
+      .hero, .card {
+        padding: 22px 18px;
+      }
+      .table-wrap {
+        border-radius: 16px;
+      }
+      table {
+        min-width: 640px;
+      }
+      th, td {
+        padding: 12px 10px;
+        font-size: 0.94rem;
+      }
       .floating-btn {
         min-width: 0;
         padding: 11px 15px;
@@ -232,8 +249,8 @@
 
     <section class="hero">
       <div class="eyebrow">Informasi Peserta</div>
-      <h1>Urutan Peserta Kreasi Video</h1>
-      <p>Halaman ini menampilkan detail peserta tingkat RT yang sudah mengirim kreasi video ke panitia. Data dibaca langsung dari spreadsheet publik, sehingga tetap bisa digunakan di GitHub Pages tanpa backend.</p>
+      <h1>Peserta Kreasi Video</h1>
+      <p>Ayo dukung peserta Kreasi Video Hari Jadi Desa Karyamukti ke-47 dengan "Like" video peserta yang tercantum di menu "Link Video Sosmed".</p>
     </section>
 
     <section class="stack">
