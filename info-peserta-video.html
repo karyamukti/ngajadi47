@@ -74,20 +74,6 @@
       gap: 18px;
       margin: 22px 0 48px;
     }
-    .helper {
-      display: grid;
-      gap: 10px;
-    }
-    .helper code {
-      display: block;
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: var(--soft);
-      border: 1px solid var(--line);
-      white-space: pre-wrap;
-      word-break: break-all;
-      color: var(--brand-dark);
-    }
     .table-wrap {
       overflow: auto;
       border: 1px solid var(--line);
@@ -145,12 +131,59 @@
     details li + li {
       margin-top: 8px;
     }
-    .status-box {
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.72);
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(31, 20, 11, 0.48);
+      backdrop-filter: blur(6px);
+    }
+    .modal-backdrop.active {
+      display: flex;
+    }
+    .modal-card {
+      width: min(520px, 100%);
+      padding: 24px;
+      border-radius: 24px;
+      background: rgba(255, 250, 241, 0.98);
       border: 1px solid var(--line);
-      color: var(--muted);
+      box-shadow: var(--shadow);
+    }
+    .modal-card h2 {
+      margin: 0 0 10px;
+      font-size: 1.35rem;
+    }
+    .modal-card p {
+      margin: 0 0 18px;
+    }
+    .modal-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .modal-btn,
+    .modal-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 0;
+    }
+    .modal-btn {
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+    .modal-link {
+      background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+      color: #fff8ef;
     }
     .footer {
       padding: 0 0 40px;
@@ -204,15 +237,8 @@
     </section>
 
     <section class="stack">
-      <article class="card helper">
-        <strong>Sumber Data Spreadsheet</strong>
-        <p>Halaman ini siap membaca data dari spreadsheet share/publish. Agar berjalan di GitHub Pages, gunakan link CSV publik dari Google Sheets atau spreadsheet yang mendukung akses langsung tanpa login.</p>
-        <code id="sheetSourceInfo">Belum ada URL spreadsheet publik yang dipasang. Isi konstanta SHEET_CSV_URL di script halaman ini atau gunakan parameter ?sheet=URL_CSV.</code>
-      </article>
-
       <article class="card">
         <strong>Daftar Peserta</strong>
-        <div class="status-box" id="statusBox">Menunggu sumber data spreadsheet publik.</div>
         <div class="table-wrap">
           <table>
             <thead>
@@ -241,16 +267,28 @@
     </div>
   </footer>
 
+  <div class="modal-backdrop" id="instagramModal" aria-hidden="true">
+    <div class="modal-card">
+      <h2>Peringatan Instagram</h2>
+      <p>Jika video belum tampil, silahkan follow/ikuti dulu Akun Instagram Desa Karyamukti (@karyamukti.banjar).</p>
+      <div class="modal-actions">
+        <button class="modal-btn" type="button" id="closeInstagramModal">Tutup</button>
+        <a class="modal-link" href="#" target="_blank" rel="noopener noreferrer" id="continueInstagramLink">Lanjutkan ke Link Video Instagram</a>
+      </div>
+    </div>
+  </div>
+
   <button class="floating-btn share" type="button" id="shareButton">Bagikan</button>
   <button class="floating-btn back" type="button" id="backButton">Kembali</button>
 
   <script>
     const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoqcyo0ccL2pFFT8Os7iz1KXACBE63l9MiH77hXFHEayUORzTdIZLzc4K_qOafE5beddeHgd1naMoj/pub?output=csv";
-    const sheetSourceInfo = document.getElementById("sheetSourceInfo");
-    const statusBox = document.getElementById("statusBox");
     const participantBody = document.getElementById("participantBody");
     const shareButton = document.getElementById("shareButton");
     const backButton = document.getElementById("backButton");
+    const instagramModal = document.getElementById("instagramModal");
+    const closeInstagramModal = document.getElementById("closeInstagramModal");
+    const continueInstagramLink = document.getElementById("continueInstagramLink");
 
     function escapeHtml(value) {
       return String(value)
@@ -333,7 +371,11 @@
       }
 
       const items = links.map(function (item) {
-        return '<li><a class="inline-link" href="' + escapeHtml(item.value) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(item.label) + "</a></li>";
+        const isInstagram = item.label.toLowerCase() === "instagram";
+        const extraAttr = isInstagram
+          ? ' data-instagram-link="true"'
+          : "";
+        return '<li><a class="inline-link" href="' + escapeHtml(item.value) + '" target="_blank" rel="noopener noreferrer"' + extraAttr + ">" + escapeHtml(item.label) + "</a></li>";
       }).join("");
 
       return '<details><summary>Lihat Link Sosmed</summary><ul>' + items + "</ul></details>";
@@ -430,12 +472,9 @@
       const sheetUrl = runtimeSheetUrl || SHEET_CSV_URL;
 
       if (!sheetUrl) {
-        statusBox.textContent = "Belum ada URL spreadsheet publik. Pasang URL CSV publik agar data peserta tampil otomatis.";
+        participantBody.innerHTML = '<tr><td colspan="5">URL spreadsheet publik belum dipasang.</td></tr>';
         return;
       }
-
-      sheetSourceInfo.textContent = sheetUrl;
-      statusBox.textContent = "Memuat data peserta dari spreadsheet...";
 
       try {
         let rows = [];
@@ -456,10 +495,8 @@
         }
 
         renderRows(rows);
-        statusBox.textContent = "Data peserta berhasil dimuat dari spreadsheet publik.";
       } catch (error) {
         participantBody.innerHTML = '<tr><td colspan="5">Data gagal dimuat dari spreadsheet.</td></tr>';
-        statusBox.textContent = "Data gagal dimuat. Pastikan link spreadsheet berupa CSV publik dan bisa diakses tanpa login.";
       }
     }
 
@@ -492,6 +529,30 @@
       }
 
       window.location.href = "lomba.html";
+    });
+
+    participantBody.addEventListener("click", function (event) {
+      const link = event.target.closest('a[data-instagram-link="true"]');
+      if (!link) {
+        return;
+      }
+
+      event.preventDefault();
+      continueInstagramLink.href = link.href;
+      instagramModal.classList.add("active");
+      instagramModal.setAttribute("aria-hidden", "false");
+    });
+
+    closeInstagramModal.addEventListener("click", function () {
+      instagramModal.classList.remove("active");
+      instagramModal.setAttribute("aria-hidden", "true");
+      continueInstagramLink.href = "#";
+    });
+
+    instagramModal.addEventListener("click", function (event) {
+      if (event.target === instagramModal) {
+        closeInstagramModal.click();
+      }
     });
 
     loadParticipantData();
