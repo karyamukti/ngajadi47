@@ -105,6 +105,9 @@
     tbody tr:last-child td {
       border-bottom: 0;
     }
+    tbody tr {
+      background: transparent;
+    }
     td:first-child,
     th:first-child {
       text-align: center;
@@ -113,6 +116,11 @@
     .rt-cell {
       font-weight: 700;
       color: var(--ink);
+    }
+    .table-empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 18px 14px;
     }
     details {
       border: 1px solid var(--line);
@@ -223,13 +231,67 @@
       }
       .table-wrap {
         border-radius: 16px;
+        overflow: visible;
+        border: 0;
+        background: transparent;
       }
       table {
-        min-width: 640px;
+        min-width: 0;
       }
-      th, td {
-        padding: 12px 10px;
+      thead {
+        display: none;
+      }
+      tbody {
+        display: grid;
+        gap: 14px;
+      }
+      tbody tr {
+        display: block;
+        padding: 16px 14px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.68);
+        box-shadow: 0 12px 28px rgba(74, 41, 18, 0.08);
+      }
+      td {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
         font-size: 0.94rem;
+        border-bottom: 1px solid rgba(93, 62, 34, 0.1);
+        text-align: left !important;
+      }
+      td:first-child,
+      th:first-child {
+        width: auto;
+      }
+      td:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+      }
+      td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 4px;
+        color: var(--brand-dark);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      td[data-label="No"] {
+        padding-top: 0;
+      }
+      td[data-label="No"]::before {
+        margin-bottom: 6px;
+      }
+      td.table-empty {
+        padding: 18px 14px;
+        border: 0;
+        text-align: center !important;
+      }
+      td.table-empty::before {
+        display: none;
       }
       .floating-btn {
         min-width: 0;
@@ -269,7 +331,7 @@
             </thead>
             <tbody id="participantBody">
               <tr>
-                <td colspan="5">Belum ada data untuk ditampilkan.</td>
+                <td class="table-empty" colspan="5">Belum ada data untuk ditampilkan.</td>
               </tr>
             </tbody>
           </table>
@@ -459,7 +521,7 @@
 
     function renderRows(rows) {
       if (!rows.length) {
-        participantBody.innerHTML = '<tr><td colspan="5">Belum ada data untuk ditampilkan.</td></tr>';
+        participantBody.innerHTML = '<tr><td class="table-empty" colspan="5">Belum ada data untuk ditampilkan.</td></tr>';
         return;
       }
 
@@ -473,11 +535,11 @@
 
         return (
           "<tr>" +
-            "<td>" + (index + 1) + "</td>" +
-            '<td class="rt-cell">' + escapeHtml(rt) + "</td>" +
-            "<td>" + escapeHtml(judul) + "</td>" +
-            "<td>" + descriptionCell + "</td>" +
-            "<td>" + buildSocialList(row) + "</td>" +
+            '<td data-label="No">' + (index + 1) + "</td>" +
+            '<td class="rt-cell" data-label="Nama RT">' + escapeHtml(rt) + "</td>" +
+            '<td data-label="Judul Video">' + escapeHtml(judul) + "</td>" +
+            '<td data-label="Deskripsi Video">' + descriptionCell + "</td>" +
+            '<td data-label="Link Video Sosmed">' + buildSocialList(row) + "</td>" +
           "</tr>"
         );
       }).join("");
@@ -489,7 +551,7 @@
       const sheetUrl = runtimeSheetUrl || SHEET_CSV_URL;
 
       if (!sheetUrl) {
-        participantBody.innerHTML = '<tr><td colspan="5">URL spreadsheet publik belum dipasang.</td></tr>';
+        participantBody.innerHTML = '<tr><td class="table-empty" colspan="5">URL spreadsheet publik belum dipasang.</td></tr>';
         return;
       }
 
@@ -513,7 +575,7 @@
 
         renderRows(rows);
       } catch (error) {
-        participantBody.innerHTML = '<tr><td colspan="5">Data gagal dimuat dari spreadsheet.</td></tr>';
+        participantBody.innerHTML = '<tr><td class="table-empty" colspan="5">Data gagal dimuat dari spreadsheet.</td></tr>';
       }
     }
 
