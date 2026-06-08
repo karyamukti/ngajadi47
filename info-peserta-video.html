@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Peserta Video | Hari Jadi Desa Karyamukti ke-47</title>
+  <link rel="icon" href="logo/favicon.ico" type="image/x-icon">
+  <meta name="description" content="Informasi urutan dan detail peserta video Hari Jadi Desa Karyamukti ke-47 berdasarkan data spreadsheet publik.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Peserta Video Hari Jadi Desa Karyamukti ke-47">
+  <meta property="og:description" content="Lihat urutan RT, judul video, deskripsi, dan tautan media sosial peserta video Hari Jadi Desa Karyamukti ke-47.">
+  <meta property="og:image" content="logo/logo.png">
+  <meta property="og:image:alt" content="Logo Hari Jadi Desa Karyamukti ke-47">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Peserta Video Hari Jadi Desa Karyamukti ke-47">
+  <meta name="twitter:description" content="Lihat urutan RT, judul video, deskripsi, dan tautan media sosial peserta video Hari Jadi Desa Karyamukti ke-47.">
+  <meta name="twitter:image" content="logo/logo.png">
+  <style>
+    :root {
+      --card: rgba(255, 250, 241, 0.94);
+      --ink: #302418;
+      --muted: #6e5a46;
+      --line: rgba(93, 62, 34, 0.14);
+      --shadow: 0 18px 42px rgba(74, 41, 18, 0.12);
+      --radius: 24px;
+      --brand: #b33a30;
+      --brand-dark: #7f261f;
+      --soft: rgba(255, 255, 255, 0.72);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #fbf5ea 0%, #f6efe3 100%);
+    }
+    a { color: inherit; text-decoration: none; }
+    .shell { width: min(1100px, calc(100% - 32px)); margin: 0 auto; }
+    .topbar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 18px 20px;
+      margin: 28px 0 24px;
+      background: rgba(255, 250, 244, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 999px;
+      box-shadow: 0 10px 28px rgba(70, 39, 17, 0.08);
+    }
+    .logo { display: flex; justify-content: center; width: 100%; }
+    .logo img { display: block; width: min(100%, 460px); height: auto; }
+    .hero, .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 4px);
+      box-shadow: var(--shadow);
+    }
+    .hero, .card { padding: 28px; }
+    .eyebrow {
+      display: inline-block;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(111, 90, 70, 0.12);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    h1 { margin: 16px 0 10px; font-size: clamp(2rem, 5vw, 3.2rem); letter-spacing: -0.04em; }
+    p, li { color: var(--muted); line-height: 1.7; }
+    .stack {
+      display: grid;
+      gap: 18px;
+      margin: 22px 0 48px;
+    }
+    .helper {
+      display: grid;
+      gap: 10px;
+    }
+    .helper code {
+      display: block;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: var(--soft);
+      border: 1px solid var(--line);
+      white-space: pre-wrap;
+      word-break: break-all;
+      color: var(--brand-dark);
+    }
+    .table-wrap {
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+    th, td {
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+    th {
+      position: sticky;
+      top: 0;
+      background: #f7efe4;
+      color: var(--ink);
+      font-size: 0.95rem;
+    }
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+    td:first-child,
+    th:first-child {
+      text-align: center;
+      width: 70px;
+    }
+    .rt-cell {
+      font-weight: 700;
+      color: var(--ink);
+    }
+    details {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.72);
+      padding: 10px 12px;
+    }
+    details summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--brand-dark);
+    }
+    details p,
+    details ul {
+      margin: 10px 0 0;
+    }
+    details ul {
+      padding-left: 18px;
+    }
+    details li + li {
+      margin-top: 8px;
+    }
+    .status-box {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .footer {
+      padding: 0 0 40px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .footer .shell {
+      text-align: right;
+    }
+    .floating-btn {
+      position: fixed;
+      z-index: 20;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 120px;
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(48, 36, 24, 0.9);
+      color: #fff8ef;
+      box-shadow: 0 16px 32px rgba(48, 36, 24, 0.22);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+    .floating-btn.share { top: 18px; right: 18px; }
+    .floating-btn.back { left: 18px; bottom: 18px; }
+    @media (max-width: 720px) {
+      .floating-btn {
+        min-width: 0;
+        padding: 11px 15px;
+        font-size: 0.92rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar">
+      <a class="logo" href="index.html" aria-label="Hari Jadi Desa Karyamukti ke-47">
+        <img src="logo/logo.png" alt="Logo Hari Jadi Desa Karyamukti ke-47">
+      </a>
+    </div>
+
+    <section class="hero">
+      <div class="eyebrow">Informasi Peserta</div>
+      <h1>Urutan Peserta Kreasi Video</h1>
+      <p>Halaman ini menampilkan detail peserta tingkat RT yang sudah mengirim kreasi video ke panitia. Data dibaca langsung dari spreadsheet publik, sehingga tetap bisa digunakan di GitHub Pages tanpa backend.</p>
+    </section>
+
+    <section class="stack">
+      <article class="card helper">
+        <strong>Sumber Data Spreadsheet</strong>
+        <p>Halaman ini siap membaca data dari spreadsheet share/publish. Agar berjalan di GitHub Pages, gunakan link CSV publik dari Google Sheets atau spreadsheet yang mendukung akses langsung tanpa login.</p>
+        <code id="sheetSourceInfo">Belum ada URL spreadsheet publik yang dipasang. Isi konstanta SHEET_CSV_URL di script halaman ini atau gunakan parameter ?sheet=URL_CSV.</code>
+      </article>
+
+      <article class="card">
+        <strong>Daftar Peserta</strong>
+        <div class="status-box" id="statusBox">Menunggu sumber data spreadsheet publik.</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Nama RT</th>
+                <th>Judul Video</th>
+                <th>Deskripsi Video</th>
+                <th>Link Video Sosmed</th>
+              </tr>
+            </thead>
+            <tbody id="participantBody">
+              <tr>
+                <td colspan="5">Belum ada data untuk ditampilkan.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <div class="shell">
+      Karyamukti Ngajadi (7 Juni 1979 - 2026)
+    </div>
+  </footer>
+
+  <button class="floating-btn share" type="button" id="shareButton">Bagikan</button>
+  <button class="floating-btn back" type="button" id="backButton">Kembali</button>
+
+  <script>
+    const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoqcyo0ccL2pFFT8Os7iz1KXACBE63l9MiH77hXFHEayUORzTdIZLzc4K_qOafE5beddeHgd1naMoj/pub?output=csv";
+    const sheetSourceInfo = document.getElementById("sheetSourceInfo");
+    const statusBox = document.getElementById("statusBox");
+    const participantBody = document.getElementById("participantBody");
+    const shareButton = document.getElementById("shareButton");
+    const backButton = document.getElementById("backButton");
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function parseCsv(text) {
+      const normalized = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+      const rows = [];
+      let row = [];
+      let current = "";
+      let inQuotes = false;
+
+      for (let i = 0; i < normalized.length; i += 1) {
+        const char = normalized[i];
+        const next = normalized[i + 1];
+
+        if (char === '"') {
+          if (inQuotes && next === '"') {
+            current += '"';
+            i += 1;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (char === "," && !inQuotes) {
+          row.push(current.trim());
+          current = "";
+        } else if (char === "\n" && !inQuotes) {
+          row.push(current.trim());
+          current = "";
+          if (row.some(function (cell) { return cell !== ""; })) {
+            rows.push(row);
+          }
+          row = [];
+        } else {
+          current += char;
+        }
+      }
+
+      if (current !== "" || row.length) {
+        row.push(current.trim());
+        if (row.some(function (cell) { return cell !== ""; })) {
+          rows.push(row);
+        }
+      }
+
+      if (rows.length < 2) {
+        return [];
+      }
+
+      const headers = rows[0].map(function (header) {
+        return header.toLowerCase();
+      });
+
+      return rows.slice(1).map(function (cells) {
+        const row = {};
+        headers.forEach(function (header, index) {
+          row[header] = cells[index] || "";
+        });
+        return row;
+      });
+    }
+
+    function buildSocialList(row) {
+      const links = [
+        { label: "TikTok", value: row.link_tiktok || row.tiktok || "" },
+        { label: "Facebook", value: row.link_facebook || row.facebook || "" },
+        { label: "Instagram", value: row.link_instagram || row.instagram || "" },
+        { label: "YouTube", value: row.link_youtube || row.youtube || "" }
+      ].filter(function (item) {
+        return item.value;
+      });
+
+      if (links.length === 0) {
+        return "<span>-</span>";
+      }
+
+      const items = links.map(function (item) {
+        return '<li><a class="inline-link" href="' + escapeHtml(item.value) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(item.label) + "</a></li>";
+      }).join("");
+
+      return '<details><summary>Lihat Link Sosmed</summary><ul>' + items + "</ul></details>";
+    }
+
+    function parseGvizTable(table) {
+      if (!table || !table.cols || !table.rows) {
+        return [];
+      }
+
+      const headers = table.cols.map(function (col) {
+        return String(col.label || col.id || "").trim().toLowerCase();
+      });
+
+      return table.rows.map(function (row) {
+        const result = {};
+        headers.forEach(function (header, index) {
+          const cell = row.c[index];
+          result[header] = cell && typeof cell.v !== "undefined" ? String(cell.v) : "";
+        });
+        return result;
+      });
+    }
+
+    function loadSheetViaJsonp(sheetUrl) {
+      return new Promise(function (resolve, reject) {
+        const callbackName = "__sheetJsonpCallback" + Date.now();
+        const timeoutId = window.setTimeout(function () {
+          cleanup();
+          reject(new Error("Timeout memuat spreadsheet"));
+        }, 10000);
+
+        function cleanup() {
+          window.clearTimeout(timeoutId);
+          delete window[callbackName];
+          if (script.parentNode) {
+            script.parentNode.removeChild(script);
+          }
+        }
+
+        window[callbackName] = function (response) {
+          cleanup();
+          try {
+            resolve(parseGvizTable(response.table));
+          } catch (error) {
+            reject(error);
+          }
+        };
+
+        const script = document.createElement("script");
+        const gvizUrl = sheetUrl.replace(
+          /\/pub\?output=csv$/,
+          "/gviz/tq?tqx=responseHandler:" + callbackName + ";out:json"
+        );
+
+        script.src = gvizUrl;
+        script.onerror = function () {
+          cleanup();
+          reject(new Error("Gagal memuat fallback Google Visualization"));
+        };
+        document.body.appendChild(script);
+      });
+    }
+
+    function renderRows(rows) {
+      if (!rows.length) {
+        participantBody.innerHTML = '<tr><td colspan="5">Belum ada data untuk ditampilkan.</td></tr>';
+        return;
+      }
+
+      participantBody.innerHTML = rows.map(function (row, index) {
+        const rt = row.nama_rt || row.rt || row["nama rt"] || row["rt"] || "-";
+        const judul = row.judul_video || row["judul video"] || row.judul || "-";
+        const deskripsi = row.deskripsi_video || row["deskripsi video"] || row.deskripsi || "";
+        const descriptionCell = deskripsi
+          ? '<details><summary>Lihat Deskripsi</summary><p>' + escapeHtml(deskripsi) + "</p></details>"
+          : "<span>-</span>";
+
+        return (
+          "<tr>" +
+            "<td>" + (index + 1) + "</td>" +
+            '<td class="rt-cell">' + escapeHtml(rt) + "</td>" +
+            "<td>" + escapeHtml(judul) + "</td>" +
+            "<td>" + descriptionCell + "</td>" +
+            "<td>" + buildSocialList(row) + "</td>" +
+          "</tr>"
+        );
+      }).join("");
+    }
+
+    async function loadParticipantData() {
+      const params = new URLSearchParams(window.location.search);
+      const runtimeSheetUrl = params.get("sheet");
+      const sheetUrl = runtimeSheetUrl || SHEET_CSV_URL;
+
+      if (!sheetUrl) {
+        statusBox.textContent = "Belum ada URL spreadsheet publik. Pasang URL CSV publik agar data peserta tampil otomatis.";
+        return;
+      }
+
+      sheetSourceInfo.textContent = sheetUrl;
+      statusBox.textContent = "Memuat data peserta dari spreadsheet...";
+
+      try {
+        let rows = [];
+
+        try {
+          const response = await fetch(sheetUrl);
+          if (!response.ok) {
+            throw new Error("Gagal mengambil CSV spreadsheet.");
+          }
+
+          const csvText = await response.text();
+          rows = parseCsv(csvText);
+          if (!rows.length) {
+            throw new Error("CSV terbaca tetapi tidak menghasilkan baris data.");
+          }
+        } catch (csvError) {
+          rows = await loadSheetViaJsonp(sheetUrl);
+        }
+
+        renderRows(rows);
+        statusBox.textContent = "Data peserta berhasil dimuat dari spreadsheet publik.";
+      } catch (error) {
+        participantBody.innerHTML = '<tr><td colspan="5">Data gagal dimuat dari spreadsheet.</td></tr>';
+        statusBox.textContent = "Data gagal dimuat. Pastikan link spreadsheet berupa CSV publik dan bisa diakses tanpa login.";
+      }
+    }
+
+    shareButton.addEventListener("click", async function () {
+      const shareData = {
+        title: document.title,
+        text: "Peserta Kreasi Video Hari Jadi Desa Karyamukti ke-47",
+        url: window.location.href
+      };
+
+      try {
+        if (navigator.share) {
+          await navigator.share(shareData);
+          return;
+        }
+
+        await navigator.clipboard.writeText(window.location.href);
+        alert("Tautan halaman sudah disalin.");
+      } catch (error) {
+        if (error && error.name !== "AbortError") {
+          alert("Tautan belum bisa dibagikan dari browser ini.");
+        }
+      }
+    });
+
+    backButton.addEventListener("click", function () {
+      if (window.history.length > 1) {
+        window.history.back();
+        return;
+      }
+
+      window.location.href = "lomba.html";
+    });
+
+    loadParticipantData();
+  </script>
+</body>
+</html>
