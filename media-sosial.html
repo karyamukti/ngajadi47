@@ -77,6 +77,60 @@
     .card { padding: 24px; }
     .card strong { display: block; margin-bottom: 10px; font-size: 1.08rem; }
     .card span { color: var(--muted); }
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(31, 20, 11, 0.48);
+      backdrop-filter: blur(6px);
+    }
+    .modal-backdrop.active {
+      display: flex;
+    }
+    .modal-card {
+      width: min(520px, 100%);
+      padding: 24px;
+      border-radius: 24px;
+      background: rgba(255, 250, 241, 0.98);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .modal-card h2 {
+      margin: 0 0 10px;
+      font-size: 1.35rem;
+    }
+    .modal-card p {
+      margin: 0 0 18px;
+    }
+    .modal-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .modal-btn,
+    .modal-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 0;
+    }
+    .modal-btn {
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+    .modal-link {
+      background: linear-gradient(135deg, #b33a30, #7f261f);
+      color: #fff8ef;
+    }
     .footer {
       padding: 0 0 40px;
       color: var(--muted);
@@ -137,7 +191,7 @@
         <strong>Facebook</strong>
         <span>Desa Karyamukti</span>
       </a>
-      <a class="card" href="https://www.instagram.com/karyamukti.banjar/" target="_blank" rel="noopener noreferrer">
+      <a class="card" href="https://www.instagram.com/karyamukti.banjar/" target="_blank" rel="noopener noreferrer" data-instagram-link="true">
         <strong>Instagram</strong>
         <span>@karyamukti.banjar</span>
       </a>
@@ -158,12 +212,26 @@
     </div>
   </footer>
 
+  <div class="modal-backdrop" id="instagramModal" aria-hidden="true">
+    <div class="modal-card">
+      <h2>Peringatan Instagram</h2>
+      <p>Jika postingan atau video belum tampil, silahkan ikuti/follow dahulu akun Instagram Desa Karyamukti (@karyamukti.banjar).</p>
+      <div class="modal-actions">
+        <button class="modal-btn" type="button" id="closeInstagramModal">Tutup</button>
+        <a class="modal-link" href="#" target="_blank" rel="noopener noreferrer" id="continueInstagramLink">Lanjutkan ke Instagram Desa</a>
+      </div>
+    </div>
+  </div>
+
   <button class="floating-btn share" type="button" id="shareButton">Bagikan</button>
   <button class="floating-btn back" type="button" id="backButton">Kembali</button>
 
   <script>
     const shareButton = document.getElementById("shareButton");
     const backButton = document.getElementById("backButton");
+    const instagramModal = document.getElementById("instagramModal");
+    const closeInstagramModal = document.getElementById("closeInstagramModal");
+    const continueInstagramLink = document.getElementById("continueInstagramLink");
 
     shareButton.addEventListener("click", async function () {
       const shareData = {
@@ -194,6 +262,30 @@
       }
 
       window.location.href = "index.html";
+    });
+
+    document.addEventListener("click", function (event) {
+      const instagramLink = event.target.closest('a[data-instagram-link="true"]');
+      if (!instagramLink) {
+        return;
+      }
+
+      event.preventDefault();
+      continueInstagramLink.href = instagramLink.href;
+      instagramModal.classList.add("active");
+      instagramModal.setAttribute("aria-hidden", "false");
+    });
+
+    closeInstagramModal.addEventListener("click", function () {
+      instagramModal.classList.remove("active");
+      instagramModal.setAttribute("aria-hidden", "true");
+      continueInstagramLink.href = "#";
+    });
+
+    instagramModal.addEventListener("click", function (event) {
+      if (event.target === instagramModal) {
+        closeInstagramModal.click();
+      }
     });
   </script>
 </body>
